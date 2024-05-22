@@ -13,11 +13,16 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+/*        this.setMusic(); */
     }
 
 
     setWorld() {
         this.character.world = this;
+    }
+
+    setMusic() {
+        this.level.background_sound.play();
     }
 
     
@@ -28,6 +33,7 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.items);
         this.ctx.translate(-this.camera_x, 0);
   
  

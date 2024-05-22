@@ -32,7 +32,7 @@ class Character extends MovableObject{
                 this.walking_sound.play();
             }
 
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.world.keyboard.LEFT && this.x > -610) {
                 this.x -= this.speed;
                 this.otherDirection = true;
                 this.walking_sound.play();
