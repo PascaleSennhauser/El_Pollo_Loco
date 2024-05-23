@@ -62,6 +62,7 @@ class MovableObject {
         this.x -= this.speed;
     }
 
+    
     jump() {
         this.speedY = 30;
     }
