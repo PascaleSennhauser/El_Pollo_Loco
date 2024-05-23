@@ -46,7 +46,7 @@ class MovableObject {
 
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 0 % 6; 0,, Rest 0
+        let i = this.currentImage % images.length; // let i = 0 % 6; 0,, Rest 0
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -62,7 +62,7 @@ class MovableObject {
         this.x -= this.speed;
     }
 
-    
+
     jump() {
         this.speedY = 30;
     }
