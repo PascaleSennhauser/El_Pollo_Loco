@@ -24,6 +24,12 @@ class Character extends MovableObject{
     ]
     world;
     walking_sound = new Audio('audio/walking.mp3');
+    offset = {
+        top: 118,
+        bottom: 15,
+        left: 15,
+        right: 30
+    };
 
 
     constructor() {
@@ -50,10 +56,10 @@ class Character extends MovableObject{
                 this.walking_sound.play();
             }
 
-
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
             }
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
@@ -70,7 +76,4 @@ class Character extends MovableObject{
         }, 50);
     }
 
-    jummp() {
-
-    }
 }

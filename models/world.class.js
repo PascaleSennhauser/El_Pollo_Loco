@@ -22,6 +22,7 @@ class World {
         this.character.world = this;
     }
 
+
     checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
@@ -33,6 +34,7 @@ class World {
         }, 1000);
     }
 
+    
     setMusic() {
         this.level.background_sound.play();
     }
@@ -48,7 +50,6 @@ class World {
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
   
- 
 
         // Draw() wird immer wieder aufgerufen
         self = this;
@@ -64,6 +65,7 @@ class World {
         });
     }
 
+
     addToMap(mo) {
         if(mo.otherDirection) {
             this.flipImage(mo);
@@ -74,6 +76,7 @@ class World {
             this.flipImageBack(mo);
         }
     }
+
 
     flipImage(mo) {
         this.ctx.save();
