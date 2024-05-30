@@ -1,12 +1,6 @@
-class ThrowableObject extends MovableObject {
-
+class ThrowableBottle extends ThrowableObject {
+    
     constructor() {
         super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-        this.x = 100;
-        this.y = 100;
-    }
-
-    throw() {
-
     }
 }

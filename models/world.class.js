@@ -6,6 +6,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
+    throwableBottle = [new ThrowableBottle()];
 
 
     constructor(canvas, keyboard) {
