@@ -3,6 +3,31 @@ class Character extends MovableObject{
     height = 300;
     width = 120;
     speed = 10;
+    IMAGES_STANDING = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+    IMAGES_WAITING = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png',
+    
+    ];
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -44,10 +69,13 @@ class Character extends MovableObject{
         left: 15,
         right: 30
     };
+    timeLastAction = new Date().getTime();
 
 
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
+        this.loadImages(this.IMAGES_STANDING);
+        this.loadImages(this.IMAGES_WAITING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -81,18 +109,29 @@ class Character extends MovableObject{
 
 
         setInterval(() => {
-            if(this.isDead()) {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.updateTimeLastAction();
+                this.playAnimation(this.IMAGES_WALKING);
+            } else if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
+                this.updateTimeLastAction();
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
+                this.updateTimeLastAction();
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.isStanding(this.timeLastAction)) {
+                this.playAnimation(this.IMAGES_STANDING);
             } else {
-                if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
+                if (this.isWaiting(this.timeLastAction)) {
+                    this.playAnimation(this.IMAGES_WAITING);
                 }
             }
         }, 50);
+    }
+
+    updateTimeLastAction() {
+        this.timeLastAction = new Date().getTime();
     }
 
 }

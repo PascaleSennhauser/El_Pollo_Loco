@@ -4,12 +4,6 @@ class MovableObject extends DrawableObject{
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
-    offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
-    };
     lastHit = 0;
 
 
@@ -45,7 +39,7 @@ class MovableObject extends DrawableObject{
 
 
     hit() {
-        this.energy -= 5;
+        this.energy -= 20;
         if(this.energy < 0) {
             this.energy = 0;
         } else {
@@ -57,7 +51,7 @@ class MovableObject extends DrawableObject{
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; // Difference in s
-        return timepassed < 1;
+        return timepassed < 2;
     }
 
 
@@ -66,13 +60,30 @@ class MovableObject extends DrawableObject{
     }
 
 
-    playAnimation(images) {
-        let i = this.currentImage % images.length; // let i = 0 % 6; 0,, Rest 0
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+    isStanding(time) {
+        let timepassed = this.getTimePassed(time);
+        return timepassed > 1000 && timepassed < 5000;
     }
 
+    isWaiting(time) {
+        let timepassed = this.getTimePassed(time);
+        return timepassed >= 5000;
+    }
+
+
+    getTimePassed(time) {
+        let newTime = new Date().getTime();
+        let timepassed = newTime - time;
+        return timepassed;
+    }
+
+
+    playAnimation(images) {
+            let i = this.currentImage % images.length; // let i = 0 % 6; 0,, Rest 0
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+    }
 
     moveRight() {
         this.x += this.speed;

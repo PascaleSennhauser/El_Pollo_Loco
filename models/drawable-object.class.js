@@ -6,6 +6,12 @@ class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    };
 
 
     loadImage(path) {
@@ -20,7 +26,7 @@ class DrawableObject {
 
 
     drawFrame(ctx) {
-        if(this instanceof Character || this instanceof Chicken) {
+        if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof Endboss || this instanceof Bottle || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';
