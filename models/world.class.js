@@ -15,7 +15,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();        
+        this.run();        
 /*        this.setMusic(); */
     }
 
@@ -25,15 +25,28 @@ class World {
     }
 
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
-                }
-            })
-        }, 1000);
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 200);
+    }
+
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if(this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        })
+    }
+
+    checkThrowObjects() {
+        if(this.keyboard.SPACE) {
+            let bottle = new ThrowableBottle(100, 100);
+            this.throwableBottle.push(bottle);
+        }
     }
 
     
@@ -49,6 +62,7 @@ class World {
         this.addObjectsToMap(this.level.items);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableBottle);
 
         this.ctx.translate(-this.camera_x, 0); // Back
         // ---- Space for fixed objects ----
