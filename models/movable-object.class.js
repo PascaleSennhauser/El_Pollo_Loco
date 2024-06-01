@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
     speed = 0.08;
     otherDirection = false;
     speedY = 0;
@@ -9,16 +9,16 @@ class MovableObject extends DrawableObject{
 
     applyGravity() {
         setInterval(() => {
-            if(this.isAboveGround() || this.speedY > 0) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000/25);
+        }, 1000 / 25);
     }
 
 
     isAboveGround() {
-        if(this instanceof ThrowableObject) { // Throwable objects should always fall
+        if (this instanceof ThrowableObject) { // Throwable objects should always fall
             return true;
         } else {
             return this.y < 130;
@@ -31,16 +31,16 @@ class MovableObject extends DrawableObject{
 
     // character.isColliding(chicken);
     isColliding(mo) {
-        return  (this.x + this.width - this.offset.right) > (mo.x + mo.offset.left) &&
-                (this.y + this.height - this.offset.bottom) > (mo.y + mo.offset.top) &&
-                (this.x + this.offset.left) < (mo.x + mo.width - mo.offset.right) &&
-                (this.y + this.offset.top) < (mo.y + mo.height - mo.offset.bottom);
+        return (this.x + this.width - this.offset.right) > (mo.x + mo.offset.left) &&
+            (this.y + this.height - this.offset.bottom) > (mo.y + mo.offset.top) &&
+            (this.x + this.offset.left) < (mo.x + mo.width - mo.offset.right) &&
+            (this.y + this.offset.top) < (mo.y + mo.height - mo.offset.bottom);
     }
 
 
     hit() {
         this.energy -= 20;
-        if(this.energy < 0) {
+        if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
@@ -51,7 +51,7 @@ class MovableObject extends DrawableObject{
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; // Difference in s
-        return timepassed < 2;
+        return timepassed < 3;
     }
 
 
@@ -62,7 +62,7 @@ class MovableObject extends DrawableObject{
 
     isStanding(time) {
         let timepassed = this.getTimePassed(time);
-        return timepassed > 1000 && timepassed < 5000;
+        return timepassed < 5000;
     }
 
     isWaiting(time) {
@@ -89,7 +89,7 @@ class MovableObject extends DrawableObject{
         this.x += this.speed;
     }
 
-    
+
     moveLeft() {
         this.x -= this.speed;
     }

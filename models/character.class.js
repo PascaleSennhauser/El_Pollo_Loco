@@ -1,5 +1,5 @@
-class Character extends MovableObject{
-    y= 130;
+class Character extends MovableObject {
+    y = 130;
     height = 300;
     width = 120;
     speed = 10;
@@ -26,7 +26,7 @@ class Character extends MovableObject{
         'img/2_character_pepe/1_idle/long_idle/I-18.png',
         'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
-    
+
     ];
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -66,10 +66,11 @@ class Character extends MovableObject{
     offset = {
         top: 118,
         bottom: 15,
-        left: 15,
-        right: 30
+        left: 25,
+        right: 35
     };
     timeLastAction = new Date().getTime();
+
 
 
     constructor() {
@@ -109,10 +110,7 @@ class Character extends MovableObject{
 
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.updateTimeLastAction();
-                this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.isDead()) {
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.updateTimeLastAction();
@@ -120,6 +118,9 @@ class Character extends MovableObject{
             } else if (this.isAboveGround()) {
                 this.updateTimeLastAction();
                 this.playAnimation(this.IMAGES_JUMPING);
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.updateTimeLastAction();
+                this.playAnimation(this.IMAGES_WALKING);
             } else if (this.isStanding(this.timeLastAction)) {
                 this.playAnimation(this.IMAGES_STANDING);
             } else {

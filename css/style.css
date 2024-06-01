@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'Zabars';
-    src: url('../fonts/Zabars.ttf') format('truetype');
+    font-family: 'ComicKhazi';
+    src: url('../fonts/ComicKhazi.ttf') format('truetype');
 }
 
 
 body {
-    font-family: 'Zabars', Arial, Helvetica, sans-serif;
+    font-family: 'ComicKhazi', Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,6 +23,13 @@ canvas {
     display: block;
 }
 
+
+h1 {
+    font-size: 64px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
 /* Smartphones --------- */
 
 @media only screen and (max-width: 720px) {
@@ -34,9 +41,9 @@ canvas {
 /* Smartphones --------- */
 
 @media only screen and (orientation: landscape) {
-    h1 {
+    /*h1 {
         display: none;
-    }
+    } */
 }
 
 /* Smartphones --------- */
@@ -47,11 +54,7 @@ canvas {
     }
 }
 
-h1 {
-    font-size: 64px;
-    letter-spacing: 3px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-}
+
 
 canvas {
     background-color: black;
