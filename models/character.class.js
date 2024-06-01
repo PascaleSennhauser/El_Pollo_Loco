@@ -36,17 +36,20 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-25.png',
         'img/2_character_pepe/2_walk/W-26.png',
     ];
-    IMAGES_JUMPING = [
+    IMAGES_JUMPING_UP = [
         'img/2_character_pepe/3_jump/J-31.png',
         'img/2_character_pepe/3_jump/J-32.png',
         'img/2_character_pepe/3_jump/J-33.png',
-        'img/2_character_pepe/3_jump/J-34.png',
+        'img/2_character_pepe/3_jump/J-34.png'
+    ];
+    IMAGES_FALLING_DOWN = [
         'img/2_character_pepe/3_jump/J-35.png',
         'img/2_character_pepe/3_jump/J-36.png',
         'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png',
         'img/2_character_pepe/3_jump/J-39.png'
-    ];
+    ]
+
     IMAGES_DEAD = [
         'img/2_character_pepe/5_dead/D-51.png',
         'img/2_character_pepe/5_dead/D-52.png',
@@ -78,7 +81,8 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_STANDING);
         this.loadImages(this.IMAGES_WAITING);
         this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_JUMPING_UP);
+        this.loadImages(this.IMAGES_FALLING_DOWN);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
@@ -109,7 +113,7 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
 
-        setInterval(() => {
+        this.interval = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -117,7 +121,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.updateTimeLastAction();
-                this.playAnimation(this.IMAGES_JUMPING);
+                this.playAnimation(this.IMAGES_JUMPING_UP);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.updateTimeLastAction();
                 this.playAnimation(this.IMAGES_WALKING);
@@ -128,7 +132,7 @@ class Character extends MovableObject {
                     this.playAnimation(this.IMAGES_WAITING);
                 }
             }
-        }, 50);
+        }, 100);
     }
 
     updateTimeLastAction() {

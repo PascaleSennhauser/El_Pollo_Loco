@@ -51,7 +51,7 @@ class MovableObject extends DrawableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; // Difference in s
-        return timepassed < 3;
+        return timepassed < 1;
     }
 
 
@@ -84,6 +84,7 @@ class MovableObject extends DrawableObject {
             this.img = this.imageCache[path];
             this.currentImage++;
     }
+
 
     moveRight() {
         this.x += this.speed;
