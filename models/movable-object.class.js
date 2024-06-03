@@ -5,11 +5,14 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    timeLastAction = new Date().getTime();
+    isJumping = false;
+    jumpAnimationIndex = 0;
 
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
+            if (this.speedY > 0 || this.isAboveGround()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -26,7 +29,14 @@ class MovableObject extends DrawableObject {
     }
 
 
+    updateTimeLastAction() {
+        this.timeLastAction = new Date().getTime();
+    }
 
+    updateIsJumping() {
+        this.isJumping = false;
+        this.jumpAnimationIndex = 0;
+    }
 
 
     // character.isColliding(chicken);
@@ -62,12 +72,12 @@ class MovableObject extends DrawableObject {
 
     isStanding(time) {
         let timepassed = this.getTimePassed(time);
-        return timepassed < 5000;
+        return timepassed < 3000;
     }
 
     isWaiting(time) {
         let timepassed = this.getTimePassed(time);
-        return timepassed >= 5000;
+        return timepassed >= 3000;
     }
 
 
@@ -79,12 +89,23 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(images) {
-            let i = this.currentImage % images.length; // let i = 0 % 6; 0,, Rest 0
-            let path = images[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+        let i = this.currentImage % images.length; // let i = 0 % 6; 0,, Rest 0
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 
+    handleJumpingAnimation(images) {
+        if (this.isJumping == true) {
+            return;
+        } else {
+            if (this.jumpAnimationIndex < images.length) {
+                let path = images[this.jumpAnimationIndex];
+                this.img = this.imageCache[path];
+                this.jumpAnimationIndex++;
+            }
+        }
+    }
 
     moveRight() {
         this.x += this.speed;
