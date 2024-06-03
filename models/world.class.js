@@ -5,7 +5,8 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    healthBar = new HealthBar();
+    bottleBar = new BottleBar();
     throwableBottle = [new ThrowableBottle()];
     bigBottle;
 
@@ -30,7 +31,6 @@ class World {
         });
     }
 
-
     setWorld() {
         this.character.world = this;
     }
@@ -39,8 +39,10 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
+            this.checkCollectingBottles();
+            this.checkCollectingCoins();
             this.checkThrowObjects();
-        }, 200);
+        }, 50);
     }
 
 
@@ -52,6 +54,44 @@ class World {
             }
         })
     }
+
+
+    checkCollectingBottles() {
+        for (let i = this.level.items.length - 1; i >= 0; i--) {
+            let item = this.level.items[i];
+            if (item instanceof Bottle && this.character.bottlesInventar < 5 && this.character.isColliding(item) && !this.character.isHurt()) {
+                // Adding bottle to the inventar of the character
+                this.character.bottlesInventar++;
+    
+                // Deleting bottle from the items array
+                this.level.items.splice(i, 1);
+    
+                console.log('Collected bottle: ', item);
+                console.log('Remaining items: ', this.level.items);
+                console.log('Collected bottles: ', this.character.bottlesInventar);
+            }
+        }
+    }
+
+    checkCollectingCoins() {
+        this.level.items.forEach((item, index) => {
+            if(item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt()) {
+                // Adding bottle to the inventar of the character
+                this.character.coinsInventar++;
+
+                // Deleting bottle from the items array
+                this.level.items.splice(index, 1);
+
+                console.log('Collected coin: ', item);
+                console.log('Remaining items: ', this.level.items);
+                console.log('Collected coins: ', this.character.coinsInventar);
+
+            }
+        })
+    }
+
+
+
 
     checkThrowObjects() {
         if(this.keyboard.SPACE) {
@@ -68,10 +108,10 @@ class World {
     
     draw() {
 
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 200)) {
-            this.camera_x = -(this.bigBottle.x + 200 - this.canvas.width);
+
+        if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
+            this.camera_x = -(this.bigBottle.x + 300 - this.canvas.width);
         }
 
         this.ctx.translate(this.camera_x, 0);
@@ -83,7 +123,8 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0); // Back
         // ---- Space for fixed objects ----
-        this.addToMap(this.statusBar);
+        this.addToMap(this.healthBar);
+        this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0); // Forward
 
         this.addToMap(this.character);

@@ -66,6 +66,8 @@ class Character extends MovableObject {
         left: 25,
         right: 35
     };
+    bottlesInventar = 0;
+    coinsInventar = 0;
 
 
     constructor() {
