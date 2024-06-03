@@ -66,7 +66,6 @@ class Character extends MovableObject {
         left: 25,
         right: 35
     };
-    jumpInterval;
 
 
     constructor() {

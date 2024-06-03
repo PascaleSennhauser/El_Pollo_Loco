@@ -4,7 +4,7 @@ class Level {
     items;
     backgroundObjects;
     background_sound;
-    level_end_x = 4400;
+    level_end_x = 4250;
 
 
     constructor(enemies, clouds, items, backgroundObjects, background_sound) {

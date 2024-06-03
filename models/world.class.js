@@ -7,16 +7,27 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     throwableBottle = [new ThrowableBottle()];
+    bigBottle;
 
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.findingBigBottle();
         this.draw();
         this.setWorld();
         this.run();        
 /*        this.setMusic(); */
+    }
+
+
+    findingBigBottle() {
+        this.level.items.forEach((item) => {
+            if (item instanceof BigBottle) {
+                this.bigBottle = item;
+            }
+        });
     }
 
 
@@ -56,7 +67,13 @@ class World {
 
     
     draw() {
+
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 200)) {
+            this.camera_x = -(this.bigBottle.x + 200 - this.canvas.width);
+        }
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.items);
