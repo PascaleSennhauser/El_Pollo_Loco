@@ -48,8 +48,8 @@ class MovableObject extends DrawableObject {
     }
 
 
-    hit() {
-        this.energy -= 20;
+    hit(energyloss) {
+        this.energy -= energyloss;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

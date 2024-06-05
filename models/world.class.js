@@ -43,18 +43,30 @@ class World {
             this.checkCollectingBottles();
             this.checkCollectingCoins();
             this.checkThrowObjects();
-        }, 50);
+        }, 25);
     }
 
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
+            if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
+                if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
+                    console.log('Chicken');
+                    enemy.hit(100);
+                    setTimeout(() => {
+                        let index = this.level.enemies.indexOf(enemy);
+                        if (index > -1) {
+                            this.level.enemies.splice(index, 1);
+                        }
+                    }, 3000);
+                } else {
+                    this.character.hit(20);
+                    this.healthBar.setPercentage(this.character.energy);
+                }
             }
         })
     }
+
 
 
     checkCollectingBottles() {
@@ -63,6 +75,8 @@ class World {
             if (item instanceof Bottle && this.character.bottlesInventar < 5 && this.character.isColliding(item) && !this.character.isHurt()) {
                 // Adding bottle to the inventar of the character
                 this.character.bottlesInventar++;
+                this.bottleBar.percentage += 20;
+                this.bottleBar.setPercentage(this.bottleBar.percentage);
 
                 // Deleting bottle from the items array
                 this.level.items.splice(i, 1);
@@ -157,7 +171,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+       // mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
