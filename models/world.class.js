@@ -7,6 +7,7 @@ class World {
     camera_x = 0;
     healthBar = new HealthBar();
     bottleBar = new BottleBar();
+    coinBar = new CoinBar();
     throwableBottle = [new ThrowableBottle()];
     bigBottle;
 
@@ -18,8 +19,8 @@ class World {
         this.findingBigBottle();
         this.draw();
         this.setWorld();
-        this.run();        
-/*        this.setMusic(); */
+        this.run();
+        /*        this.setMusic(); */
     }
 
 
@@ -48,9 +49,9 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if(this.character.isColliding(enemy) && !this.character.isHurt()) {
+            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.healthBar.setPercentage(this.character.energy);
             }
         })
     }
@@ -62,10 +63,10 @@ class World {
             if (item instanceof Bottle && this.character.bottlesInventar < 5 && this.character.isColliding(item) && !this.character.isHurt()) {
                 // Adding bottle to the inventar of the character
                 this.character.bottlesInventar++;
-    
+
                 // Deleting bottle from the items array
                 this.level.items.splice(i, 1);
-    
+
                 console.log('Collected bottle: ', item);
                 console.log('Remaining items: ', this.level.items);
                 console.log('Collected bottles: ', this.character.bottlesInventar);
@@ -75,7 +76,7 @@ class World {
 
     checkCollectingCoins() {
         this.level.items.forEach((item, index) => {
-            if(item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt()) {
+            if (item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt()) {
                 // Adding bottle to the inventar of the character
                 this.character.coinsInventar++;
 
@@ -94,22 +95,26 @@ class World {
 
 
     checkThrowObjects() {
-        if(this.keyboard.SPACE) {
+        if (this.keyboard.SPACE) {
             let bottle = new ThrowableBottle(100, 100);
             this.throwableBottle.push(bottle);
         }
     }
 
-    
+
     setMusic() {
         this.level.background_sound.play();
     }
 
-    
+
     draw() {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.camera_x = this.canvas.width / 2 - this.character.x - 170;
+
+
+        // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
         if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
             this.camera_x = -(this.bigBottle.x + 300 - this.canvas.width);
         }
@@ -125,15 +130,16 @@ class World {
         // ---- Space for fixed objects ----
         this.addToMap(this.healthBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0); // Forward
 
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
-  
+
 
         // Draw() wird immer wieder aufgerufen
         self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
     }
@@ -147,7 +153,7 @@ class World {
 
 
     addToMap(mo) {
-        if(mo.otherDirection) {
+        if (mo.otherDirection) {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
@@ -165,7 +171,7 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    
+
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
