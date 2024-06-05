@@ -10,6 +10,7 @@ class World {
     coinBar = new CoinBar();
     throwableBottle = [new ThrowableBottle()];
     bigBottle;
+    amountOfCoins = 0;
 
 
     constructor(canvas, keyboard) {
@@ -17,6 +18,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.findingBigBottle();
+        this.getAmountOfCoins();
         this.draw();
         this.setWorld();
         this.run();
@@ -30,6 +32,14 @@ class World {
                 this.bigBottle = item;
             }
         });
+    }
+
+    getAmountOfCoins() {
+        this.level.items.forEach((item) => {
+            if (item instanceof Coin) {
+                this.amountOfCoins++;
+            }
+        })
     }
 
     setWorld() {
@@ -75,11 +85,11 @@ class World {
             if (item instanceof Bottle && this.character.bottlesInventar < 5 && this.character.isColliding(item) && !this.character.isHurt()) {
                 // Adding bottle to the inventar of the character
                 this.character.bottlesInventar++;
-                this.bottleBar.percentage += 20;
-                this.bottleBar.setPercentage(this.bottleBar.percentage);
 
                 // Deleting bottle from the items array
                 this.level.items.splice(i, 1);
+                this.bottleBar.percentage += 20;
+                this.bottleBar.setPercentage(this.bottleBar.percentage);
 
                 console.log('Collected bottle: ', item);
                 console.log('Remaining items: ', this.level.items);
@@ -93,9 +103,13 @@ class World {
             if (item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt()) {
                 // Adding bottle to the inventar of the character
                 this.character.coinsInventar++;
-
+ 
                 // Deleting bottle from the items array
                 this.level.items.splice(index, 1);
+                console.log('This amountofCoins', this.amountOfCoins);
+                this.coinBar.percentage += (100/this.amountOfCoins);
+                console.log('percentage', this.coinBar.percentage);
+                this.coinBar.setPercentage(this.coinBar.percentage);
 
                 console.log('Collected coin: ', item);
                 console.log('Remaining items: ', this.level.items);
