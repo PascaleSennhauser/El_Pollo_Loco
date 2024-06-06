@@ -67,6 +67,7 @@ class Character extends MovableObject {
         right: 35
     };
     bottlesInventar = 0;
+    throwableBottle = [];
     coinsInventar = 0;
 
 
@@ -110,7 +111,8 @@ class Character extends MovableObject {
                 this.jumping_sound.play();
             }
 
-            this.world.camera_x = -this.x + 100;
+
+            this.world.camera_x = -this.x + 200;
         }, 1000 / 60);
 
 

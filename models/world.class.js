@@ -8,9 +8,9 @@ class World {
     healthBar = new HealthBar();
     bottleBar = new BottleBar();
     coinBar = new CoinBar();
-    throwableBottle = [new ThrowableBottle()];
     bigBottle;
     amountOfCoins = 0;
+    timeOfThrow = 0;
 
 
     constructor(canvas, keyboard) {
@@ -123,10 +123,21 @@ class World {
 
 
     checkThrowObjects() {
-        if (this.keyboard.SPACE) {
-            let bottle = new ThrowableBottle(100, 100);
-            this.throwableBottle.push(bottle);
+        if (this.keyboard.SPACE && this.character.bottlesInventar > 0 && this.lastThrow() > 1) {
+            let bottle = new ThrowableBottle(this.character.x + this.character.width/2 - this.character.offset.right, this.character.y+ this.character.height/2);
+            this.character.throwableBottle.push(bottle);
+            this.character.bottlesInventar--;
+            this.bottleBar.percentage -= 20;
+            this.bottleBar.setPercentage(this.bottleBar.percentage);
+            this.timeOfThrow = new Date().getTime();
+            this.character.updateTimeLastAction();
         }
+    }
+
+    lastThrow() {
+        let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
+        return timepassed;
+        
     }
 
 
@@ -139,8 +150,6 @@ class World {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.camera_x = this.canvas.width / 2 - this.character.x - 170;
-
 
         // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
         if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
@@ -152,7 +161,7 @@ class World {
         this.addObjectsToMap(this.level.items);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableBottle);
+        this.addObjectsToMap(this.character.throwableBottle);
 
         this.ctx.translate(-this.camera_x, 0); // Back
         // ---- Space for fixed objects ----
