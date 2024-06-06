@@ -11,6 +11,7 @@ class World {
     bigBottle;
     amountOfCoins = 0;
     timeOfThrow = 0;
+    throwableBottle = [];
 
 
     constructor(canvas, keyboard) {
@@ -53,6 +54,7 @@ class World {
             this.checkCollectingBottles();
             this.checkCollectingCoins();
             this.checkThrowObjects();
+            this.checkHitWithBottle();
         }, 25);
     }
 
@@ -91,7 +93,6 @@ class World {
                 this.bottleBar.percentage += 20;
                 this.bottleBar.setPercentage(this.bottleBar.percentage);
 
-                console.log('Collected bottle: ', item);
                 console.log('Remaining items: ', this.level.items);
                 console.log('Collected bottles: ', this.character.bottlesInventar);
             }
@@ -103,11 +104,11 @@ class World {
             if (item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt()) {
                 // Adding bottle to the inventar of the character
                 this.character.coinsInventar++;
- 
+
                 // Deleting bottle from the items array
                 this.level.items.splice(index, 1);
                 console.log('This amountofCoins', this.amountOfCoins);
-                this.coinBar.percentage += (100/this.amountOfCoins);
+                this.coinBar.percentage += (100 / this.amountOfCoins);
                 console.log('percentage', this.coinBar.percentage);
                 this.coinBar.setPercentage(this.coinBar.percentage);
 
@@ -121,11 +122,10 @@ class World {
 
 
 
-
     checkThrowObjects() {
         if (this.keyboard.SPACE && this.character.bottlesInventar > 0 && this.lastThrow() > 1) {
-            let bottle = new ThrowableBottle(this.character.x + this.character.width/2 - this.character.offset.right, this.character.y+ this.character.height/2);
-            this.character.throwableBottle.push(bottle);
+            let bottle = new ThrowableBottle(this.character.x + this.character.width / 2 - this.character.offset.right, this.character.y + this.character.height / 2);
+            this.throwableBottle.push(bottle);
             this.character.bottlesInventar--;
             this.bottleBar.percentage -= 20;
             this.bottleBar.setPercentage(this.bottleBar.percentage);
@@ -134,83 +134,101 @@ class World {
         }
     }
 
-    lastThrow() {
-        let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
-        return timepassed;
-        
-    }
-
-
-    setMusic() {
-        this.level.background_sound.play();
-    }
-
-
-    draw() {
-
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-
-        // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
-        if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
-            this.camera_x = -(this.bigBottle.x + 300 - this.canvas.width);
-        }
-
-        this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.items);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.character.throwableBottle);
-
-        this.ctx.translate(-this.camera_x, 0); // Back
-        // ---- Space for fixed objects ----
-        this.addToMap(this.healthBar);
-        this.addToMap(this.bottleBar);
-        this.addToMap(this.coinBar);
-        this.ctx.translate(this.camera_x, 0); // Forward
-
-        this.addToMap(this.character);
-        this.ctx.translate(-this.camera_x, 0);
-
-
-        // Draw() wird immer wieder aufgerufen
-        self = this;
-        requestAnimationFrame(function () {
-            self.draw();
+    checkHitWithBottle() {
+        this.level.enemies.forEach((enemy) => {
+            this.throwableBottle.forEach((bottle) => {
+                if (bottle.isColliding(enemy)) {
+                        enemy.hit(100);
+                        setTimeout(() => {
+                            let index = this.level.enemies.indexOf(enemy);
+                            if (index > -1) {
+                                this.level.enemies.splice(index, 1);
+                            }
+                        }, 3000);
+                }
+            });
         });
     }
 
 
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
+
+lastThrow() {
+    let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
+    return timepassed;
+
+}
+
+
+setMusic() {
+    this.level.background_sound.play();
+}
+
+
+draw() {
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+
+    // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
+    if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
+        this.camera_x = -(this.bigBottle.x + 300 - this.canvas.width);
     }
 
+    this.ctx.translate(this.camera_x, 0);
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.items);
+    this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.throwableBottle);
 
-    addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo);
-        }
-        mo.draw(this.ctx);
-       // mo.drawFrame(this.ctx);
-        if (mo.otherDirection) {
-            this.flipImageBack(mo);
-        }
+    this.ctx.translate(-this.camera_x, 0); // Back
+    // ---- Space for fixed objects ----
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinBar);
+    this.ctx.translate(this.camera_x, 0); // Forward
+
+    this.addToMap(this.character);
+    this.ctx.translate(-this.camera_x, 0);
+
+
+    // Draw() wird immer wieder aufgerufen
+    self = this;
+    requestAnimationFrame(function () {
+        self.draw();
+    });
+}
+
+
+addObjectsToMap(objects) {
+    objects.forEach(o => {
+        this.addToMap(o);
+    });
+}
+
+
+addToMap(mo) {
+    if (mo.otherDirection) {
+        this.flipImage(mo);
     }
-
-
-    flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
+    mo.draw(this.ctx);
+    // mo.drawFrame(this.ctx);
+    if (mo.otherDirection) {
+        this.flipImageBack(mo);
     }
+}
 
 
-    flipImageBack(mo) {
-        mo.x = mo.x * -1;
-        this.ctx.restore();
-    }
+flipImage(mo) {
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
+    mo.x = mo.x * -1;
+}
+
+
+flipImageBack(mo) {
+    mo.x = mo.x * -1;
+    this.ctx.restore();
+}
 }

@@ -67,7 +67,6 @@ class Character extends MovableObject {
         right: 35
     };
     bottlesInventar = 0;
-    throwableBottle = [];
     coinsInventar = 0;
 
 
