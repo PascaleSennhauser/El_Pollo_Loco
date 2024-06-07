@@ -120,7 +120,6 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
                 this.updateIsJumping();
-                console.log('isJumping', this.isJumping, ' jumpAnimationIndex', this.startIndex);
                 this.updateTimeLastAction();
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
@@ -128,7 +127,6 @@ class Character extends MovableObject {
                 this.handleJumpingAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.updateIsJumping();
-                console.log('isJumping', this.isJumping, ' jumpAnimationIndex', this.startIndex);
                 this.updateTimeLastAction();
                 this.playAnimation(this.IMAGES_WALKING);
             } else if (this.isStanding(this.timeLastAction)) {

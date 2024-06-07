@@ -14,11 +14,12 @@ class ThrowableBottle extends ThrowableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
         ''
     ];
+    spalshFinished = false;
 
 
     
-    constructor(x, y) {
-        super(x, y);
+    constructor(x, y, direction) {
+        super(x, y, direction);
         this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_THROWING);
         this.loadImages(this.IMAGES_SPLASH);

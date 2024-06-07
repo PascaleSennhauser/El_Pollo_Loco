@@ -55,7 +55,17 @@ class World {
             this.checkCollectingCoins();
             this.checkThrowObjects();
             this.checkHitWithBottle();
+            this.checkSplashFinsihed();
         }, 25);
+    }
+
+
+    checkSplashFinsihed() {
+        for (let i = this.throwableBottle.length - 1; i >= 0; i--) {
+            if (this.throwableBottle[i].splashFinished) {
+                this.throwableBottle.splice(i, 1);
+            }
+        }
     }
 
 
@@ -63,7 +73,6 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
                 if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
-                    console.log('Chicken');
                     enemy.hit(100);
                     setTimeout(() => {
                         let index = this.level.enemies.indexOf(enemy);
@@ -92,9 +101,6 @@ class World {
                 this.level.items.splice(i, 1);
                 this.bottleBar.percentage += 20;
                 this.bottleBar.setPercentage(this.bottleBar.percentage);
-
-                console.log('Remaining items: ', this.level.items);
-                console.log('Collected bottles: ', this.character.bottlesInventar);
             }
         }
     }
@@ -107,14 +113,8 @@ class World {
 
                 // Deleting bottle from the items array
                 this.level.items.splice(index, 1);
-                console.log('This amountofCoins', this.amountOfCoins);
                 this.coinBar.percentage += (100 / this.amountOfCoins);
-                console.log('percentage', this.coinBar.percentage);
                 this.coinBar.setPercentage(this.coinBar.percentage);
-
-                console.log('Collected coin: ', item);
-                console.log('Remaining items: ', this.level.items);
-                console.log('Collected coins: ', this.character.coinsInventar);
 
             }
         })
@@ -124,7 +124,8 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.SPACE && this.character.bottlesInventar > 0 && this.lastThrow() > 1) {
-            let bottle = new ThrowableBottle(this.character.x + this.character.width / 2 - this.character.offset.right, this.character.y + this.character.height / 2);
+            let direction = this.checkDirection();
+            let bottle = new ThrowableBottle(this.character.x + this.character.width / 2, this.character.y + this.character.height / 2, direction);
             this.throwableBottle.push(bottle);
             this.character.bottlesInventar--;
             this.bottleBar.percentage -= 20;
@@ -132,6 +133,14 @@ class World {
             this.timeOfThrow = new Date().getTime();
             this.character.updateTimeLastAction();
         }
+    }
+
+    checkDirection() {
+        if (this.character.otherDirection) {
+            return "left";
+        } else {
+            return "right";
+        };
     }
 
     checkHitWithBottle() {
@@ -142,10 +151,8 @@ class World {
                         enemy.hit(100);
                         setTimeout(() => {
                             let index = this.level.enemies.indexOf(enemy);
-                            let bottleIndex = this.throwableBottle.indexOf(bottle);
                             if (index > -1) {
                                 this.level.enemies.splice(index, 1);
-                                this.throwableBottle.splice(bottleIndex, 1);
                             }
                         }, 3000);
                 }
@@ -182,7 +189,6 @@ draw() {
     this.addObjectsToMap(this.level.items);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.throwableBottle);
 
     this.ctx.translate(-this.camera_x, 0); // Back
     // ---- Space for fixed objects ----
@@ -192,6 +198,7 @@ draw() {
     this.ctx.translate(this.camera_x, 0); // Forward
 
     this.addToMap(this.character);
+    this.addObjectsToMap(this.throwableBottle);
     this.ctx.translate(-this.camera_x, 0);
 
 
