@@ -137,7 +137,8 @@ class World {
     checkHitWithBottle() {
         this.level.enemies.forEach((enemy) => {
             this.throwableBottle.forEach((bottle) => {
-                if (bottle.isColliding(enemy)) {
+                if (bottle.isColliding(enemy) && !enemy.isDead() && bottle.isAboveGround()) {
+                        bottle.hit = true;
                         enemy.hit(100);
                         setTimeout(() => {
                             let index = this.level.enemies.indexOf(enemy);

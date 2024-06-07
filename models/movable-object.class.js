@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     timeLastAction = new Date().getTime();
     isJumping = false;
-    jumpAnimationIndex = 0;
+    startIndex = 0;
 
 
     applyGravity() {
@@ -22,7 +22,7 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof ThrowableObject) { // Throwable objects should always fall
-            return true;
+            return this.y < 350;
         } else {
             return this.y < 130;
         }
@@ -35,7 +35,7 @@ class MovableObject extends DrawableObject {
 
     updateIsJumping() {
         this.isJumping = false;
-        this.jumpAnimationIndex = 0;
+        this.startIndex = 0;
     }
 
 
@@ -99,13 +99,16 @@ class MovableObject extends DrawableObject {
         if (this.isJumping == true) {
             return;
         } else {
-            if (this.jumpAnimationIndex < images.length) {
-                let path = images[this.jumpAnimationIndex];
+            if (this.startIndex < images.length) {
+                let path = images[this.startIndex];
                 this.img = this.imageCache[path];
-                this.jumpAnimationIndex++;
+                this.startIndex++;
             }
         }
     }
+
+
+
 
 
     moveRight() {

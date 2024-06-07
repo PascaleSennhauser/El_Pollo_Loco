@@ -12,19 +12,35 @@ class ThrowableBottle extends ThrowableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
-    ]
+    ];
+
 
     
     constructor(x, y) {
-        super(x, y).loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
+        super(x, y);
+        this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_THROWING);
+        this.loadImages(this.IMAGES_SPLASH);
+        this.animate();
     }
 
-    throwingAnimation() {
-        this.playAnimation(this.IMAGES_THROWING);
+    animate() {
+        setInterval(() => {
+            if(this.isAboveGround() && !this.hit){
+                this.playAnimation(this.IMAGES_THROWING);
+            } else {
+                this.handleSplashAnimation(this.IMAGES_SPLASH);
+                clearInterval(this.throwIntervalX); 
+            }           
+        }, 70);
     }
 
-    splashingAnimation() {
-        this.playAnimation(this.IMAGES_SPLASH);
+    handleSplashAnimation(images) {
+        if (this.startIndex < images.length) {
+            let path = images[this.startIndex];
+            this.img = this.imageCache[path];
+            this.startIndex++;
+        }
     }
+
 }
