@@ -142,8 +142,10 @@ class World {
                         enemy.hit(100);
                         setTimeout(() => {
                             let index = this.level.enemies.indexOf(enemy);
+                            let bottleIndex = this.throwableBottle.indexOf(bottle);
                             if (index > -1) {
                                 this.level.enemies.splice(index, 1);
+                                this.throwableBottle.splice(bottleIndex, 1);
                             }
                         }, 3000);
                 }

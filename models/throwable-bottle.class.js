@@ -11,7 +11,8 @@ class ThrowableBottle extends ThrowableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
+        ''
     ];
 
 
@@ -29,18 +30,12 @@ class ThrowableBottle extends ThrowableObject {
             if(this.isAboveGround() && !this.hit){
                 this.playAnimation(this.IMAGES_THROWING);
             } else {
-                this.handleSplashAnimation(this.IMAGES_SPLASH);
+                this.playAnimationOnce(this.IMAGES_SPLASH);
                 clearInterval(this.throwIntervalX); 
             }           
-        }, 70);
+        }, 50);
     }
 
-    handleSplashAnimation(images) {
-        if (this.startIndex < images.length) {
-            let path = images[this.startIndex];
-            this.img = this.imageCache[path];
-            this.startIndex++;
-        }
-    }
+
 
 }
