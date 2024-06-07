@@ -8,6 +8,7 @@ class World {
     healthBar = new HealthBar();
     bottleBar = new BottleBar();
     coinBar = new CoinBar();
+    endbossBar = new EndbossBar();
     bigBottle;
     amountOfCoins = 0;
     timeOfThrow = 0;
