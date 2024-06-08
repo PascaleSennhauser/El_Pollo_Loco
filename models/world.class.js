@@ -92,17 +92,7 @@ class World {
             this.checkCollectingCoins();
             this.checkThrowObjects();
             this.checkHitWithBottle();
-            this.checkSplashFinsihed();
         }, 25);
-    }
-
-
-    checkSplashFinsihed() {
-        for (let i = this.throwableBottle.length - 1; i >= 0; i--) {
-            if (this.throwableBottle[i].splashFinished) {
-                this.throwableBottle.splice(i, 1);
-            }
-        }
     }
 
 
@@ -117,8 +107,6 @@ class World {
                             this.level.enemies.splice(index, 1);
                         }
                     }, 3000);
-                } else if (this.character.isAboveGround() && this.character.speedY < 0 && enemy instanceof Endboss){
-                    enemy.hit(100/30);
                 } else {
                     this.character.hit(20);
                     this.healthBar.setPercentage(this.character.energy);
@@ -154,23 +142,30 @@ class World {
                 this.level.items.splice(index, 1);
                 this.coinBar.percentage += (100 / this.amountOfCoins);
                 this.coinBar.setPercentage(this.coinBar.percentage);
-
             }
         })
     }
 
 
-
     checkThrowObjects() {
         if (this.keyboard.SPACE && this.character.bottlesInventar > 0 && this.lastThrow() > 1) {
-            let direction = this.checkDirection();
+            let direction = this.checkDirection(); 
             let bottle = new ThrowableBottle(this.character.x + this.character.width / 2, this.character.y + this.character.height / 2, direction);
+            console.log('Throwable bottle', bottle);
             this.throwableBottle.push(bottle);
             this.character.bottlesInventar--;
             this.bottleBar.percentage -= 20;
             this.bottleBar.setPercentage(this.bottleBar.percentage);
             this.timeOfThrow = new Date().getTime();
             this.character.updateTimeLastAction();
+
+            setTimeout(() => {
+                let index = this.throwableBottle.indexOf(bottle);
+                if (index > -1) {
+                    this.throwableBottle.splice(index, 1);
+                }
+            }, 1500);
+
         }
     }
 
@@ -185,15 +180,28 @@ class World {
     checkHitWithBottle() {
         this.level.enemies.forEach((enemy) => {
             this.throwableBottle.forEach((bottle) => {
-                if (bottle.isColliding(enemy) && !enemy.isDead() && bottle.isAboveGround()) {
+                if (bottle.isColliding(enemy) && !enemy.isDead() && bottle.isAboveGround() && bottle.hit == false) {
                         bottle.hit = true;
-                        enemy.hit(100);
-                        setTimeout(() => {
-                            let index = this.level.enemies.indexOf(enemy);
-                            if (index > -1) {
-                                this.level.enemies.splice(index, 1);
+                        bottle.stopGravity();
+                        if (!(enemy instanceof Endboss)) {
+                            enemy.hit(100);
+                            setTimeout(() => {
+                                let index = this.level.enemies.indexOf(enemy);
+                                if (index > -1) {
+                                    this.level.enemies.splice(index, 1);
+                                }
+                            }, 3000);
+                        } else {
+                            enemy.hit (100/3);
+                            this.endbossBar.setPercentage(enemy.energy);
+                            if (enemy.energy > 0) {
+                                enemy.isHurt = true;
+                                setTimeout(() => {
+                                    enemy.isHurt = false;
+                                }, 2000);
                             }
-                        }, 3000);
+                        }
+
                 }
             });
         });

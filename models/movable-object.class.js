@@ -7,7 +7,9 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     timeLastAction = new Date().getTime();
     isJumping = false;
-    startIndex = 0;
+    isSplashing = false;
+    startIndexNull = 0;
+    gravityInterval;
 
 
     playAnimation(images) {
@@ -17,27 +19,23 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    
-    handleJumpingAnimation(images) {
-        if (this.isJumping == true) {
-            return;
-        } else {
-            if (this.startIndex < images.length) {
-                let path = images[this.startIndex];
-                this.img = this.imageCache[path];
-                this.startIndex++;
-            }
-        }
-    }
-
 
     playAnimationOnce(images) {
-        if (this.startIndex < images.length) {
-            let path = images[this.startIndex];
+        if (this.startIndexNull < images.length) {
+            let path = images[this.startIndexNull];
             this.img = this.imageCache[path];
-            this.startIndex++;
+            this.startIndexNull++;
         }
     }
+
+    handleSplashAnimation(images) {
+        if (this.isSplashing == true) {
+            return;
+        } else {
+            this.playAnimationOnce(images);
+        }
+    }
+
 
 
     moveRight() {
@@ -80,12 +78,16 @@ class MovableObject extends DrawableObject {
 
 
     applyGravity() {
-        setInterval(() => {
+        this.gravityInterval = setInterval(() => {
             if (this.speedY > 0 || this.isAboveGround()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration; 
             }
         }, 1000 / 25);
+    }
+
+    stopGravity() {
+        clearInterval(this.gravityInterval);
     }
 
 
@@ -98,9 +100,8 @@ class MovableObject extends DrawableObject {
     }
 
 
-    updateIsJumping() {
-        this.isJumping = false;
-        this.startIndex = 0;
+    updateStartIndex() {
+        this.startIndexNull = 0;
     }
 
 
