@@ -3,15 +3,16 @@ class DrawableObject {
     y = 330;
     height = 100;
     width = 100;
-    img;
-    imageCache = {};
-    currentImage = 0;
     offset = {
         top: 0,
         left: 0,
         right: 0,
         bottom: 0
     };
+    img;
+    imageCache = {};
+    currentImage = 0;
+
 
 
     loadImage(path) {
@@ -38,13 +39,14 @@ class DrawableObject {
     
     /**
      * 
-     * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...]
+     * @param {Array} arr - ['img/image1.png': img, 'img/image2.png': img, ...]
      */
         loadImages(arr) {
             arr.forEach((path) => {
                 let img = new Image();
                 img.src = path;
                 this.imageCache[path] = img;
+                console.log('imageCache', this.imageCache);
             })
         }
 }

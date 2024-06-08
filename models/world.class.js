@@ -5,10 +5,10 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    healthBar = new HealthBar();
-    bottleBar = new BottleBar();
-    coinBar = new CoinBar();
-    endbossBar = new EndbossBar();
+    healthBar = new StatusbarHealth();
+    bottleBar = new StatusbarBottle();
+    coinBar = new StatusbarCoins();
+    endbossBar = new StatusbarEndboss();
     bigBottle;
     amountOfCoins = 0;
     timeOfThrow = 0;
@@ -42,6 +42,42 @@ class World {
                 this.amountOfCoins++;
             }
         })
+    }
+
+    draw() {
+
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    
+        // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
+        if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
+            this.camera_x = -(this.bigBottle.x + 300 - this.canvas.width);
+        }
+    
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.items);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
+    
+        this.ctx.translate(-this.camera_x, 0); // Back
+        // ---- Space for fixed objects ----
+        this.addToMap(this.healthBar);
+        this.addToMap(this.bottleBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.endbossBar);
+        this.ctx.translate(this.camera_x, 0); // Forward
+    
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.throwableBottle);
+        this.ctx.translate(-this.camera_x, 0);
+    
+    
+        // Draw() wird immer wieder aufgerufen
+        self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        });
     }
 
     setWorld() {
@@ -81,6 +117,8 @@ class World {
                             this.level.enemies.splice(index, 1);
                         }
                     }, 3000);
+                } else if (this.character.isAboveGround() && this.character.speedY < 0 && enemy instanceof Endboss){
+                    enemy.hit(100/30);
                 } else {
                     this.character.hit(20);
                     this.healthBar.setPercentage(this.character.energy);
@@ -175,40 +213,7 @@ setMusic() {
 }
 
 
-draw() {
 
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-
-    // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
-    if (this.bigBottle && (this.bigBottle.x <= -this.camera_x + this.canvas.width - 300)) {
-        this.camera_x = -(this.bigBottle.x + 300 - this.canvas.width);
-    }
-
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToMap(this.level.backgroundObjects);
-    this.addObjectsToMap(this.level.items);
-    this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.enemies);
-
-    this.ctx.translate(-this.camera_x, 0); // Back
-    // ---- Space for fixed objects ----
-    this.addToMap(this.healthBar);
-    this.addToMap(this.bottleBar);
-    this.addToMap(this.coinBar);
-    this.ctx.translate(this.camera_x, 0); // Forward
-
-    this.addToMap(this.character);
-    this.addObjectsToMap(this.throwableBottle);
-    this.ctx.translate(-this.camera_x, 0);
-
-
-    // Draw() wird immer wieder aufgerufen
-    self = this;
-    requestAnimationFrame(function () {
-        self.draw();
-    });
-}
 
 
 addObjectsToMap(objects) {

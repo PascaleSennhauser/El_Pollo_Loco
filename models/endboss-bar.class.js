@@ -1,3 +1,0 @@
-class EndbossBar extends DrawableObject{
-
-}
