@@ -43,7 +43,8 @@ class Endboss extends MovableObject {
     IMAGES_DEAD = [
         'img/4_enemie_boss_chicken/5_dead/G24.png',
         'img/4_enemie_boss_chicken/5_dead/G25.png',
-        'img/4_enemie_boss_chicken/5_dead/G26.png'
+        'img/4_enemie_boss_chicken/5_dead/G26.png',
+        ''
     ];
     isHurt = false;
     isWalking = false;
@@ -69,7 +70,7 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             if (this.energy < 100 && this.isWalking) {
-                this.speed = 0.3;
+                this.speed = 1;
                 this.moveLeft();
             }
         }, 1000 / 60);
@@ -101,4 +102,5 @@ class Endboss extends MovableObject {
 
         }, 200);
     }
+
 }

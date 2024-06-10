@@ -10,6 +10,7 @@ class World {
     coinBar = new StatusbarCoins();
     endbossBar = new StatusbarEndboss();
     bigBottle;
+    endboss;
     amountOfCoins = 0;
     timeOfThrow = 0;
     throwableBottle = [];
@@ -199,6 +200,14 @@ class World {
                                 setTimeout(() => {
                                     enemy.isHurt = false;
                                 }, 2000);
+                            } else {
+                                setTimeout(() => {
+                                    let index = this.level.enemies.indexOf(enemy);
+                                    if (index > -1) {
+                                        this.level.enemies.splice(index, 1);
+                                    }
+                                }, 2000);
+
                             }
                         }
 

@@ -6,8 +6,6 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
     timeLastAction = new Date().getTime();
-    isJumping = false;
-    isSplashing = false;
     startIndexNull = 0;
     gravityInterval;
 
@@ -27,16 +25,6 @@ class MovableObject extends DrawableObject {
             this.startIndexNull++;
         }
     }
-
-    handleSplashAnimation(images) {
-        if (this.isSplashing == true) {
-            return;
-        } else {
-            this.playAnimationOnce(images);
-        }
-    }
-
-
 
     moveRight() {
         this.x += this.speed;

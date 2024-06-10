@@ -20,6 +20,7 @@ body {
 }
 
 canvas {
+    background-color: black;
     display: block;
 }
 
@@ -38,19 +39,16 @@ h1 {
     }
 }
 
-/* Smartphones --------- */
-
-@media only screen and (orientation: landscape) {
-    /*h1 {
-        display: none;
-    } */
-}
 
 /* Smartphones --------- */
 
 @media only screen and (max-height: 480px) and (orientation: landscape) {
     canvas {
         height: 100vh;
+    }
+
+    h1 {
+        display: none;
     }
 }
 
