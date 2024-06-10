@@ -1,7 +1,11 @@
+
+
 @font-face {
     font-family: 'ComicKhazi';
     src: url('../fonts/ComicKhazi.ttf') format('truetype');
 }
+
+
 
 
 body {
@@ -19,17 +23,105 @@ body {
     background-size: cover;
 }
 
-canvas {
-    background-color: black;
-    display: block;
-}
-
-
 h1 {
     font-size: 64px;
     letter-spacing: 3px;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
+
+#startScreen {
+    width: 820px;
+    height: 480px;
+    background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;;
+}
+
+
+
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+}
+
+.icon {
+    width: 30px;
+    margin-right: 24px;
+}
+
+
+.icon:hover {
+    cursor: pointer;
+}
+
+.start-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    background-color: #FFDD00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #9A3A17;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.start-button {
+    height: 50px;
+    width: 120px;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+.start-button:hover {
+    cursor: pointer;
+}
+
+.impressum-button-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.impressum-button {
+    height: 25px;
+    width: 180px;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.impressum-button:hover {
+    cursor: pointer;
+}
+
+#canvas {
+    background-color: black;
+    display: block;
+    display: none;
+}
+
+.expand-icon {
+    z-index: 99;
+}
+
 
 /* Smartphones --------- */
 
@@ -54,6 +146,3 @@ h1 {
 
 
 
-canvas {
-    background-color: black;
-}

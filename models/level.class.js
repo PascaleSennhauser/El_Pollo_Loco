@@ -22,7 +22,6 @@ class Level {
                 this.getEndboss();
                 if (!this.endboss.isDead()) {
                     this.level_end_x = this.endboss.x - 30;
-                    console.log('levelEnd', this.level_end_x);
                 } else {
                     this.level_end_x = 4250;
                 }
@@ -36,7 +35,6 @@ class Level {
     getEndboss() {
         this.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss) {
-                console.log('enemyx', enemy.x);
                 this.endboss = enemy;
             }
         });

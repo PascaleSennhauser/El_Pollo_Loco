@@ -8,6 +8,13 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+function startGame() {
+    let startScreen = document.getElementById('startScreen');
+    startScreen.style.display = 'none';
+    canvas = document.getElementById('canvas');
+    canvas.style.display = 'unset';
+}
+
 
 document.addEventListener('keydown', (e) => {
     if(e.keyCode == 39) {
