@@ -2,17 +2,19 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-function init() {
-    initLevel();
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-}
 
 function startGame() {
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     canvas = document.getElementById('canvas');
     canvas.style.display = 'unset';
+    init();
+}
+
+function init() {
+    initLevel();
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
 }
 
 

@@ -24,8 +24,14 @@ class World {
         this.getAmountOfCoins();
         this.draw();
         this.setWorld();
+        this.removeLoadingScreen();
         this.run();
         /*        this.setMusic(); */
+    }
+
+
+    removeLoadingScreen() {
+        
     }
 
 

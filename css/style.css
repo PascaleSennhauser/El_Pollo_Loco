@@ -35,13 +35,18 @@ h1 {
     background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
     background-size: cover;
     background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;;
+    position: relative;
 }
 
 
+.icon-container-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
 
 
 .icon-container {
@@ -112,14 +117,46 @@ h1 {
     cursor: pointer;
 }
 
+.info-container-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-container {
+    width: 700px;
+    height: 380px;
+    background-color: rgba(246, 187, 98, 0.5);
+    z-index: 99;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.closing-icon {
+    height: 20px;
+}
+
+.next-side-icon {
+    height: 20px;
+}
+
+.closing-icon:hover,
+.next-side-icon:hover {
+    cursor: pointer;
+}
+
+
 #canvas {
     background-color: black;
     display: block;
     display: none;
-}
-
-.expand-icon {
-    z-index: 99;
 }
 
 
