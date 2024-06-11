@@ -30,6 +30,7 @@
     <script src="./models/level.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
+    <script src="./js/info.js"></script>
 
 </head>
 
@@ -41,7 +42,7 @@
             <div class="icon-container-wrapper">
                 <div class="icon-container">
                     <img src="./img/assets/expand-icon.svg" class="icon" onclick="fullscreen()">
-                    <img src="./img/assets/info-icon.svg" class="icon">
+                    <img src="./img/assets/info-icon.svg" class="icon" onclick="showGameInfo()">
                     <img src="./img/assets/keyboard-icon.svg" class="icon">
                 </div>
                 <div class="start-button-container">
@@ -51,16 +52,14 @@
                     <button class="button impressum-button">Impressum & Privacy Policy</button>
                 </div>
             </div>
-            <div class="info-container-wrapper">
+            <div id="infoContainerWrapper" class="info-container-wrapper d-none">
                 <div class="info-container">
-                    <img src="./img/assets/closing-icon.svg" class="closing-icon">
+                    <div class="closing-icon-wrapper">
+                        <img src="./img/assets/closing-icon.svg" class="closing-icon" onclick="closeGameInfo()">
+                    </div>
                     <span id="textBox">
-                        Hola, Amigo/a! Welcome to "El Pollo Loco"! I am Pepe, and I need your help. The evil chicken "El Pollo Loco" has stolen the magical Salsa Bottle, and without it, we can't have a proper fiesta.<br><br>
-                        In this crazy adventure, you have to jump over chickens and chicks or shoot them with a Salsa Bottle and fight your way to El Pollo Loco to get the magical Salsa Bottle back. El Pollo Loco must be hit 3 times before it is defeated.<br><br>
-                        Use the arrow keys to move and press the spacebar to throw a bottle. Collect as many coins and bottles as you can along the way. Pepe can carry a maximum of 5 bottles at a time. Be careful not to get caught by the chickens and chicks, or you will lose a life.<br><br>
-                        Are you ready for this adventure? Then let's get started. Good luck, Amigo/a!
                     </span>
-                    <img src="./img/assets/next-side-icon.svg" class="next-side-icon" onclick="nextSide()">
+                    <img src="./img/assets/next-side-icon.svg" class="next-side-icon" onclick="nextPage()">
                 </div>
             </div>
 

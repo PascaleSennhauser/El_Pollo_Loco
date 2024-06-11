@@ -131,16 +131,33 @@ h1 {
 .info-container {
     width: 700px;
     height: 380px;
-    background-color: rgba(246, 187, 98, 0.5);
+    background-color: rgba(246, 187, 98, 0.8);
     z-index: 99;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.closing-icon-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 60px;
 }
 
 
 .closing-icon {
     height: 20px;
+    margin-right: 30px;
+}
+
+#textBox {
+    padding: 20px 60px;
+    font-size: 20px;
+    height: 200px;
+    overflow-y: auto;
 }
 
 .next-side-icon {
@@ -179,6 +196,10 @@ h1 {
     h1 {
         display: none;
     }
+}
+
+.d-none {
+    display: none;
 }
 
 
