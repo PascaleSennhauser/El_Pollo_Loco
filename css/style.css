@@ -128,7 +128,8 @@ h1 {
     justify-content: center;
 }
 
-.info-container {
+.info-container,
+.instruction-container {
     width: 700px;
     height: 380px;
     background-color: rgba(246, 187, 98, 0.8);
@@ -137,6 +138,11 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.instruction-container {
+    width: 400px;
+    height: 320px;
 }
 
 .closing-icon-wrapper {
@@ -158,6 +164,28 @@ h1 {
     font-size: 20px;
     height: 200px;
     overflow-y: auto;
+}
+
+table {
+    margin: 30px 40px;
+}
+
+table td {
+    padding: 8px;
+}
+
+table td:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table td:last-child {
+    padding-left: 20px;
+}
+
+td img {
+    height: 25px;
 }
 
 .next-side-icon {

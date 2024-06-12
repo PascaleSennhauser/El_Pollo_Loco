@@ -9,12 +9,17 @@ let pageNumber = 0;
 function showGameInfo() {
     let infoContainerWrapper = document.getElementById('infoContainerWrapper');
     infoContainerWrapper.classList.remove('d-none');
+    let infoContainer = document.getElementById('infoContainer');
+    infoContainer.classList.remove('d-none');
     renderInfoText();
 }
 
 function closeGameInfo() {
+    pageNumber = 0;
     let infoContainerWrapper = document.getElementById('infoContainerWrapper');
     infoContainerWrapper.classList.add('d-none');
+    let infoContainer = document.getElementById('infoContainer');
+    infoContainer.classList.add('d-none');
 }
 
 function renderInfoText() {
@@ -29,7 +34,20 @@ function nextPage() {
         renderInfoText();
     } else {
         closeGameInfo();
-        pageNumber = 0;
     }
+}
 
+
+function openInstruction() {
+    let infoContainerWrapper = document.getElementById('infoContainerWrapper');
+    infoContainerWrapper.classList.remove('d-none');
+    let instructionContainer = document.getElementById('instructionContainer');
+    instructionContainer.classList.remove('d-none');
+}
+
+function closeInstruction() {
+    let infoContainerWrapper = document.getElementById('infoContainerWrapper');
+    infoContainerWrapper.classList.add('d-none');
+    let instructionContainer = document.getElementById('instructionContainer');
+    instructionContainer.classList.add('d-none');
 }
