@@ -8,7 +8,15 @@ class MovableObject extends DrawableObject {
     timeLastAction = new Date().getTime();
     startIndexNull = 0;
     gravityInterval;
+    animationIntervals = [];
 
+
+    stopInterval() {
+        this.animationIntervals.forEach((interval) => {
+            clearInterval(interval);
+        });
+        this.animationIntervals = [];
+    }
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 0 % 6; 0,, Rest 0

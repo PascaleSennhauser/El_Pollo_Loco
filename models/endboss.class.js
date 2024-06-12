@@ -68,15 +68,16 @@ class Endboss extends MovableObject {
         let animationCycle = walkingTime + attackingTime;
         let startTime = new Date().getTime();
 
-        setInterval(() => {
+        let directionInterval = setInterval(() => {
             if (this.energy < 100 && this.isWalking) {
                 this.speed = 1;
                 this.moveLeft();
             }
         }, 1000 / 60);
+        this.animationIntervals.push(directionInterval);
 
 
-        setInterval(() => {
+        let animationInterval = setInterval(() => {
             let currentTime = new Date().getTime();
             let elapsedTime = (currentTime - startTime) % animationCycle;
 
@@ -101,6 +102,7 @@ class Endboss extends MovableObject {
 
 
         }, 200);
+        this.animationIntervals.push(animationInterval);
     }
 
 }

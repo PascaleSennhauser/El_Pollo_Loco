@@ -91,7 +91,7 @@ class Character extends MovableObject {
 
 
     directionAniamtion() {
-        setInterval(() => {
+        let directionInterval = setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
@@ -118,10 +118,11 @@ class Character extends MovableObject {
 
             this.world.camera_x = -this.x + 200;
         }, 1000 / 60);
+        this.animationIntervals.push(directionInterval);
     }
 
     imagesAnimation() {
-        setInterval(() => {
+        let animationInterval = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -143,6 +144,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_WAITING);
             }
         }, 100);
+        this.animationIntervals.push(animationInterval);
     }
 
 }

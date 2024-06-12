@@ -86,7 +86,7 @@ function initLevel() {
             new Bottle(2, 1650),
             new Bottle(2, 2560),
             new Bottle(1, 2900),
-            new BigBottle(4200)
+            new BigBottle(4100)
         ],
         [
 

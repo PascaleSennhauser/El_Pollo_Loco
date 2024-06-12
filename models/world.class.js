@@ -14,6 +14,8 @@ class World {
     amountOfCoins = 0;
     timeOfThrow = 0;
     throwableBottle = [];
+    animationIntervals = [];
+    runInterval;
 
 
     constructor(canvas, keyboard) {
@@ -87,12 +89,13 @@ class World {
 
 
     run() {
-        setInterval(() => {
+        this.runInterval = setInterval(() => {
             this.checkCollisions();
             this.checkCollectingBottles();
             this.checkCollectingCoins();
             this.checkThrowObjects();
             this.checkHitWithBottle();
+            this.checkWin();
         }, 25);
     }
 
@@ -111,6 +114,23 @@ class World {
                 } else {
                     this.character.hit(20);
                     this.healthBar.setPercentage(this.character.energy);
+                    if(this.character.isDead()) {
+                        this.level.enemies.forEach((enemy) => {
+                            enemy.stopInterval();
+                        })
+                        this.level.items.forEach((item) => {
+                            if(item instanceof Coin)
+                            item.stopInterval();
+                        })
+                        this.level.clouds.forEach((cloud) => {
+                            cloud.stopInterval();
+                        })
+                        this.character.stopInterval();
+                        clearInterval(this.runInterval);
+                        setTimeout(() => {
+                            showEndScreenLoose();
+                        }, 1500);
+                    }
                 }
             }
         })
@@ -145,6 +165,26 @@ class World {
                 this.coinBar.setPercentage(this.coinBar.percentage);
             }
         })
+    }
+
+    checkWin() {
+        if (this.character.x >= this.bigBottle.x && this.character.x <= this.bigBottle.x+ this.bigBottle.width - this.bigBottle.offset.right && !this.character.isDead()) {
+            clearInterval(this.runInterval);
+            this.character.stopInterval();
+            this.level.enemies.forEach((enemy) => {
+                enemy.stopInterval();
+            })
+            this.level.items.forEach((item) => {
+                if(item instanceof Coin)
+                item.stopInterval();
+            })
+            this.level.clouds.forEach((cloud) => {
+                cloud.stopInterval();
+            })
+            setTimeout(() => {
+                showEndScreenWin();
+            }, 1500);
+        }
     }
 
 

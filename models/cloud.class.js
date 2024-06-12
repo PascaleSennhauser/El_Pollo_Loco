@@ -12,12 +12,13 @@ class Cloud extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let animationInterval = setInterval(() => {
             if (this.isOutOfCanvas()) {
                 this.setToEndOfCanvas();
             }
             this.moveLeft();
         }, 1000 / 60);
+        this.animationIntervals.push(animationInterval);
     }
 
     isOutOfCanvas() {
