@@ -6,6 +6,8 @@ let keyboard = new Keyboard();
 function startGame() {
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
+    let endScreen = document.getElementById('endScreen');
+    endScreen.style.display = 'none';
     canvas = document.getElementById('canvas');
     canvas.style.display = 'unset';
     init();
@@ -17,6 +19,14 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+function showStartScreen() {
+    let startScreen = document.getElementById('startScreen');
+    startScreen.style.display = 'unset';
+    let endScreen = document.getElementById('endScreen');
+    endScreen.style.display = 'none';
+    canvas = document.getElementById('canvas');
+    canvas.style.display = 'none';
+}
 
 document.addEventListener('keydown', (e) => {
     if(e.keyCode == 39) {

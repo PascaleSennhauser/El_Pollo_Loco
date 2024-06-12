@@ -129,7 +129,8 @@ h1 {
 }
 
 .info-container,
-.instruction-container {
+.instruction-container,
+.end-text {
     width: 700px;
     height: 380px;
     background-color: rgba(246, 187, 98, 0.8);
@@ -204,6 +205,44 @@ td img {
     display: none;
 }
 
+#endScreen {
+    width: 820px;
+    height: 480px;
+    background-image: url('../img/5_background/first_half_background.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.you-lost-img {
+    width: 820px;
+    height: 480px;
+}
+
+.lost-screen-button-container,
+.winner-screen-button-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+.winner-screen-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.end-text {
+    width: 300px;
+    height: 150px;
+    display: inline;
+    text-align: center;
+    padding: 20px 40px;
+}
 
 /* Smartphones --------- */
 
