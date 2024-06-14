@@ -100,3 +100,17 @@ document.addEventListener('keyup', (e) => {
         keyboard.SPACE = false;
     }
 });
+
+function soundOn() {
+    let volumeIcon = document.getElementById('volumeIcon');
+    let noVolumeIcon = document.getElementById('noVolumeIcon');
+    volumeIcon.classList.remove('d-none');
+    noVolumeIcon.classList.add('d-none');
+}
+
+function soundOff() {
+    let volumeIcon = document.getElementById('volumeIcon');
+    let noVolumeIcon = document.getElementById('noVolumeIcon');
+    volumeIcon.classList.add('d-none');
+    noVolumeIcon.classList.remove('d-none');
+}

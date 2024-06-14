@@ -59,8 +59,8 @@ class World {
     
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.items);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.items);
         this.addObjectsToMap(this.level.enemies);
     
         this.ctx.translate(-this.camera_x, 0); // Back
@@ -168,7 +168,7 @@ class World {
     }
 
     checkWin() {
-        if (this.character.x >= this.bigBottle.x && this.character.x <= this.bigBottle.x+ this.bigBottle.width - this.bigBottle.offset.right && !this.character.isDead()) {
+        if (this.character.x >= this.bigBottle.x && this.character.x <= this.bigBottle.x+ this.bigBottle.width - this.bigBottle.offset.right && !this.character.isDead() && !this.character.isHurt()) {
             clearInterval(this.runInterval);
             this.character.stopInterval();
             this.level.enemies.forEach((enemy) => {
