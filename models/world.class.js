@@ -24,6 +24,7 @@ class World {
         this.keyboard = keyboard;
         this.findingBigBottle();
         this.getAmountOfCoins();
+        this.getEndboss();
         this.draw();
         this.setWorld();
         this.run();
@@ -43,6 +44,14 @@ class World {
         this.level.items.forEach((item) => {
             if (item instanceof Coin) {
                 this.amountOfCoins++;
+            }
+        })
+    }
+
+    getEndboss() {
+        this.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Endboss) {
+                this.endboss = enemy;
             }
         })
     }
@@ -95,6 +104,7 @@ class World {
             this.checkCollectingCoins();
             this.checkThrowObjects();
             this.checkHitWithBottle();
+            this.checkSoundFightEndboss();
             this.checkWin();
         }, 25);
     }
@@ -173,6 +183,18 @@ class World {
                 this.coinBar.setPercentage(this.coinBar.percentage);
             }
         })
+    }
+
+    checkSoundFightEndboss() {
+
+        if (this.character.x >= this.endboss.x- 400 && !this.endboss.isDead()) {
+            console.log('endboss fight');
+            pauseSound(background_sound);
+            playSound(endboss_sound);
+        } else {
+            pauseSound(endboss_sound);
+            playSound(background_sound);
+        }
     }
 
     checkWin() {

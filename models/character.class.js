@@ -138,6 +138,7 @@ class Character extends MovableObject {
                 this.updateStartIndex();
                 this.playAnimation(this.IMAGES_STANDING);
             } else if (this.isWaiting(this.timeLastAction)) {
+                playSound(snoring_sound);
                 this.updateStartIndex();
                 this.playAnimation(this.IMAGES_WAITING);
             }
