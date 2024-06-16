@@ -5,10 +5,10 @@ let keyboard = new Keyboard();
 
 function startGame() {
     init();
-    pauseSound(gameOver_sound);
-    pauseSound(gameWin_sound);
+    pauseSound('gameOver_sound');
+    pauseSound('gameWin_sound');
     setSoundsToStart();
-    playSound(background_sound);
+    playSound('background_sound');
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');
@@ -24,8 +24,8 @@ function init() {
 }
 
 function showStartScreen() {
-    pauseSound(gameOver_sound);
-    pauseSound(gameWin_sound);
+    pauseSound('gameOver_sound');
+    pauseSound('gameWin_sound');
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'unset';
     let endScreen = document.getElementById('endScreen');
@@ -36,8 +36,8 @@ function showStartScreen() {
 }
 
 function showEndScreenLoose() {
-    pauseSound(background_sound);
-    playSound(gameOver_sound);
+    pauseLoopSounds();
+    playSound('gameOver_sound');
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');
@@ -51,8 +51,8 @@ function showEndScreenLoose() {
 }
 
 function showEndScreenWin() {
-    pauseSound(background_sound);
-    playSound(gameWin_sound);
+    pauseLoopSounds();
+    playSound('gameWin_sound');
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');

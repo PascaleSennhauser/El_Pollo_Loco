@@ -90,12 +90,12 @@ class Character extends MovableObject {
 
     directionAniamtion() {
         let directionInterval = setInterval(() => {
-            walking_sound.pause();
+            pauseSound('walking_sound');
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
                 this.moveRight();
                 if (!this.isAboveGround()) {
-                    walking_sound.play();
+                    playSound('walking_sound');
                 }
             }
 
@@ -103,14 +103,14 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.moveLeft();
                 if (!this.isAboveGround()) {
-                    walking_sound.play();
+                    playSound('walking_sound');
                 }
             }
 
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
-                jumping_sound.currentTime = 0;
-                jumping_sound.play();
+                setSoundToStart('jumping_sound');
+                playSound('jumping_sound');
             }
 
 
@@ -121,6 +121,7 @@ class Character extends MovableObject {
 
     imagesAnimation() {
         let animationInterval = setInterval(() => {
+            pauseSound('snoring_sound');
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
@@ -138,7 +139,7 @@ class Character extends MovableObject {
                 this.updateStartIndex();
                 this.playAnimation(this.IMAGES_STANDING);
             } else if (this.isWaiting(this.timeLastAction)) {
-                playSound(snoring_sound);
+                playSound('snoring_sound');
                 this.updateStartIndex();
                 this.playAnimation(this.IMAGES_WAITING);
             }
