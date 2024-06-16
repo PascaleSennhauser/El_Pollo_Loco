@@ -5,6 +5,10 @@ let keyboard = new Keyboard();
 
 function startGame() {
     init();
+    pauseSound(gameOver_sound);
+    pauseSound(gameWin_sound);
+    setSoundsToStart();
+    playSound(background_sound);
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');
@@ -20,15 +24,20 @@ function init() {
 }
 
 function showStartScreen() {
+    pauseSound(gameOver_sound);
+    pauseSound(gameWin_sound);
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'unset';
     let endScreen = document.getElementById('endScreen');
     endScreen.style.display = 'none';
     canvas = document.getElementById('canvas');
     canvas.style.display = 'none';
+    soundOn();
 }
 
 function showEndScreenLoose() {
+    pauseSound(background_sound);
+    playSound(gameOver_sound);
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');
@@ -42,6 +51,8 @@ function showEndScreenLoose() {
 }
 
 function showEndScreenWin() {
+    pauseSound(background_sound);
+    playSound(gameWin_sound);
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');
@@ -100,17 +111,3 @@ document.addEventListener('keyup', (e) => {
         keyboard.SPACE = false;
     }
 });
-
-function soundOn() {
-    let volumeIcon = document.getElementById('volumeIcon');
-    let noVolumeIcon = document.getElementById('noVolumeIcon');
-    volumeIcon.classList.remove('d-none');
-    noVolumeIcon.classList.add('d-none');
-}
-
-function soundOff() {
-    let volumeIcon = document.getElementById('volumeIcon');
-    let noVolumeIcon = document.getElementById('noVolumeIcon');
-    volumeIcon.classList.add('d-none');
-    noVolumeIcon.classList.remove('d-none');
-}

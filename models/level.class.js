@@ -4,16 +4,14 @@ class Level {
     items;
     endboss;
     backgroundObjects;
-    background_sound;
     level_end_x = 4250;
 
 
-    constructor(enemies, clouds, items, backgroundObjects, background_sound) {
+    constructor(enemies, clouds, items, backgroundObjects) {
         this.enemies = enemies;
         this.clouds = clouds;
         this.items = items;
         this.backgroundObjects = backgroundObjects;
-        this.background_sound = background_sound;
         this.setLevelEndX();
     }
 

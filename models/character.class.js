@@ -63,8 +63,6 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ];
-    walking_sound = new Audio('audio/walking.mp3');
-    jumping_sound = new Audio('audio/jumping.mp3');
     world;
     bottlesInventar = 0;
     coinsInventar = 0;
@@ -92,12 +90,12 @@ class Character extends MovableObject {
 
     directionAniamtion() {
         let directionInterval = setInterval(() => {
-            this.walking_sound.pause();
+            walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
                 this.moveRight();
                 if (!this.isAboveGround()) {
-                    this.walking_sound.play();
+                    walking_sound.play();
                 }
             }
 
@@ -105,14 +103,14 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.moveLeft();
                 if (!this.isAboveGround()) {
-                    this.walking_sound.play();
+                    walking_sound.play();
                 }
             }
 
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.jump();
-                this.jumping_sound.currentTime = 0;
-                this.jumping_sound.play();
+                jumping_sound.currentTime = 0;
+                jumping_sound.play();
             }
 
 

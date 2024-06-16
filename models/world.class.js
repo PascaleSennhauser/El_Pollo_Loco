@@ -104,6 +104,8 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
                 if (this.character.isAboveGround() && this.character.speedY < 0 && !(enemy instanceof Endboss)) {
+                    setSoundToStart(chickenDead_sound);
+                    playSound(chickenDead_sound);
                     enemy.hit(100);
                     setTimeout(() => {
                         let index = this.level.enemies.indexOf(enemy);
@@ -114,6 +116,8 @@ class World {
                 } else {
                     this.character.hit(20);
                     this.healthBar.setPercentage(this.character.energy);
+                    setSoundToStart(collision_sound);
+                    playSound(collision_sound);
                     if(this.character.isDead()) {
                         this.level.enemies.forEach((enemy) => {
                             enemy.stopInterval();
@@ -142,6 +146,8 @@ class World {
         for (let i = this.level.items.length - 1; i >= 0; i--) {
             let item = this.level.items[i];
             if (item instanceof Bottle && this.character.bottlesInventar < 5 && this.character.isColliding(item) && !this.character.isHurt()) {
+                setSoundToStart(collectingBottle_sound);
+                playSound(collectingBottle_sound);
                 // Adding bottle to the inventar of the character
                 this.character.bottlesInventar++;
 
@@ -156,6 +162,8 @@ class World {
     checkCollectingCoins() {
         this.level.items.forEach((item, index) => {
             if (item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt()) {
+                setSoundToStart(collectCoin_sound);
+                playSound(collectCoin_sound);
                 // Adding bottle to the inventar of the character
                 this.character.coinsInventar++;
 
@@ -192,6 +200,8 @@ class World {
         if (this.keyboard.SPACE && this.character.bottlesInventar > 0 && this.lastThrow() > 1) {
             let direction = this.checkDirection(); 
             let bottle = new ThrowableBottle(this.character.x + this.character.width / 2, this.character.y + this.character.height / 2, direction);
+            setSoundToStart(throwingBottle_sound);
+            playSound(throwingBottle_sound);
             console.log('Throwable bottle', bottle);
             this.throwableBottle.push(bottle);
             this.character.bottlesInventar--;
@@ -225,6 +235,8 @@ class World {
                         bottle.hit = true;
                         bottle.stopGravity();
                         if (!(enemy instanceof Endboss)) {
+                            setSoundToStart(chickenDead_sound);
+                            playSound(chickenDead_sound);
                             enemy.hit(100);
                             setTimeout(() => {
                                 let index = this.level.enemies.indexOf(enemy);
@@ -236,11 +248,15 @@ class World {
                             enemy.hit (100/3);
                             this.endbossBar.setPercentage(enemy.energy);
                             if (enemy.energy > 0) {
+                                setSoundToStart(collision_sound);
+                                playSound(collision_sound);
                                 enemy.isHurt = true;
                                 setTimeout(() => {
                                     enemy.isHurt = false;
                                 }, 2000);
                             } else {
+                                setSoundToStart(chickenDead_sound);
+                                playSound(chickenDead_sound);
                                 setTimeout(() => {
                                     let index = this.level.enemies.indexOf(enemy);
                                     if (index > -1) {
