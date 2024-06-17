@@ -198,7 +198,7 @@ class World {
     }
 
     checkWin() {
-        if (this.character.x >= this.bigBottle.x && this.character.x <= this.bigBottle.x+ this.bigBottle.width - this.bigBottle.offset.right && !this.character.isDead() && !this.character.isHurt()) {
+        if (this.character.x >= this.bigBottle.x && this.character.x <= this.bigBottle.x + this.bigBottle.width && this.character.x <= this.bigBottle.x+ this.bigBottle.width - this.bigBottle.offset.right && !this.character.isDead() && !this.character.isHurt()) {
             clearInterval(this.runInterval);
             this.character.stopInterval();
             this.level.enemies.forEach((enemy) => {

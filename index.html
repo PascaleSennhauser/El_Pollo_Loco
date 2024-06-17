@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/png" href="img/favicon/favicon.png">
     <title>El Pollo Loco</title>
+    <script src="./models/keyboard.class.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/throwable-object.class.js"></script>
@@ -27,7 +28,6 @@
     <script src="./models/statusbar-endboss.class.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./models/background-object.class.js"></script>
-    <script src="./models/keyboard.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
@@ -141,12 +141,22 @@
                         <img src="./img/assets/no-volume-icon.svg" id="noVolumeIconGameScreen" class="icon d-none" onclick="soundOn('volumeIconGameScreen', 'noVolumeIconGameScreen')">
                     </div>
                     <div class="keyboard-icon-container">
-                        <div class="arrow-icons">
-                            <img src="./img/assets/arrow-left-icon.svg" class="icon">
-                            <img src="./img/assets/arrow-up-icon.svg" class="icon arrow-up-icon">
-                            <img src="./img/assets/arrow-right-icon.svg" class="icon">
+                        <div class="left-right-icons">
+                            <div id="btnLeft" class="touch-button">
+                                <img src="./img/assets/arrow-left-icon.svg" class="icon">
+                            </div>
+                            <div id="btnRight" class="touch-button">
+                                <img src="./img/assets/arrow-right-icon.svg" class="icon">
+                            </div>
                         </div>
-                        <img src="./img/6_salsa_bottle/salsa_bottle.png" class="icon salsa-bottle-icon">
+                        <div class="up-throw-icons">
+                            <div id="btnJump" class="touch-button">
+                                <img src="./img/assets/arrow-up-icon.svg" class="icon arrow-up-icon">
+                            </div>
+                            <div id="btnThrow" class="touch-button">
+                                <img src="./img/6_salsa_bottle/salsa_bottle.png" class="icon salsa-bottle-icon">
+                            </div>
+                        </div>
                     </div>
             </div>
         </div>

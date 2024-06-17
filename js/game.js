@@ -4,6 +4,7 @@ let keyboard = new Keyboard();
 
 
 function startGame() {
+    touchEvents();
     init();
     pauseSound('gameOver_sound');
     pauseSound('gameWin_sound');
@@ -84,39 +85,54 @@ function calculateCoins() {
 }
 
 
-document.addEventListener('keydown', (e) => {
-    if(e.keyCode == 39) {
+function touchEvents() {
+    document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+}
+
+
+
+window.addEventListener('keydown', (e) => {
+    if (e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
-    if(e.keyCode == 37) {
+    if (e.keyCode == 37) {
         keyboard.LEFT = true;
     }
-    if(e.keyCode == 38) {
+    if (e.keyCode == 38) {
         keyboard.UP = true;
     }
-    if(e.keyCode == 40) {
+    if (e.keyCode == 40) {
         keyboard.DOWN = true;
     }
-    if(e.keyCode == 32) {
+    if (e.keyCode == 32) {
         keyboard.SPACE = true;
     }
 });
 
-
-document.addEventListener('keyup', (e) => {
-    if(e.keyCode == 39) {
+window.addEventListener('keyup', (e) => {
+    if (e.keyCode == 39) {
         keyboard.RIGHT = false;
     }
-    if(e.keyCode == 37) {
+    if (e.keyCode == 37) {
         keyboard.LEFT = false;
     }
-    if(e.keyCode == 38) {
+    if (e.keyCode == 38) {
         keyboard.UP = false;
     }
-    if(e.keyCode == 40) {
+    if (e.keyCode == 40) {
         keyboard.DOWN = false;
     }
-    if(e.keyCode == 32) {
+    if (e.keyCode == 32) {
         keyboard.SPACE = false;
     }
 });
+
+

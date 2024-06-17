@@ -73,7 +73,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #9A3A17;
+    border: 2px solid #9a3a17;
     border-radius: 10px;
     font-weight: bold;
 }
@@ -236,20 +236,40 @@ td img {
     box-sizing: border-box;
 }
 
-.arrow-icons {
+.touch-button {
+    background-color: #FFDD00;
+    border: 2px solid #9a3a17;
+    border-radius: 100%;
     display: flex;
-    align-items:end;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    margin-right: 8px;
+}
+
+.touch-button:hover {
+    cursor: pointer;
+}
+
+.left-right-icons,
+.up-throw-icons {
+    display: flex;
+    align-items:center;
+}
+.left-right-icons img {
+    margin: 0;
 }
 
 .arrow-up-icon {
     height: 30px;
-    margin-right: 24px;
-    margin-bottom: 30px;
+    margin: 0;
 }
 
 .salsa-bottle-icon {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
+    margin: 0;
 }
 
 

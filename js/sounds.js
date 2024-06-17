@@ -15,6 +15,7 @@ let sounds = {
 sounds['background_sound'].loop = true;
 sounds['snoring_sound'].loop = true;
 sounds['endboss_sound'].loop = true;
+sounds['walking_sound'].loop = true;
 volumeOn = true;
 
 
@@ -64,4 +65,5 @@ function pauseLoopSounds() {
     sounds['endboss_sound'].pause();
     sounds['background_sound'].pause();
     sounds['snoring_sound'].pause();
+    sounds['walking_sound'].pause();
 }
