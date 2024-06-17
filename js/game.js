@@ -33,17 +33,17 @@ function pauseWinAndGameOverSound() {
 
 
 function displayGameScreen() {
-    displayScreen('gameScreenWrapper');
-    noDisplayScreen('startScreen');
-    noDisplayScreen('endScreen');
+    display('gameScreenWrapper');
+    noDisplay('startScreen');
+    noDisplay('endScreen');
 }
 
-function displayScreen(name) {
+function display(name) {
     let screen = document.getElementById(name);
     screen.style.display = 'unset';
 }
 
-function noDisplayScreen(name) {
+function noDisplay(name) {
     let screen = document.getElementById(name);
     screen.style.display = 'none';
 }
@@ -66,9 +66,9 @@ function showStartScreen() {
 
 
 function displayStartScreen() {
-    displayScreen('startScreen');
-    noDisplayScreen('endScreen');
-    noDisplayScreen('gameScreenWrapper');
+    display('startScreen');
+    noDisplay('endScreen');
+    noDisplay('gameScreenWrapper');
 }
 
 
@@ -83,11 +83,11 @@ function setVolumeStartScreen() {
 
 function showEndScreenLoose() {
     setSoundsForEndScreenLoose();
-    displayScreen('endScreen');
-    displayScreen('lostScreenWrapper');
-    noDisplayScreen('startScreen');
-    noDisplayScreen('winnerScreenWrapper');
-    noDisplayScreen('gameScreenWrapper');
+    display('endScreen');
+    display('lostScreenWrapper');
+    noDisplay('startScreen');
+    noDisplay('winnerScreenWrapper');
+    noDisplay('gameScreenWrapper');
 }
 
 
@@ -98,11 +98,11 @@ function setSoundsForEndScreenLoose() {
 
 function showEndScreenWin() {
     setSoundsForEndScreenWin();
-    displayScreen('endScreen');
-    displayScreen('winnerScreenWrapper');
-    noDisplayScreen('startScreen');
-    noDisplayScreen('lostScreenWrapper');
-    noDisplayScreen('gameScreenWrapper');
+    display('endScreen');
+    display('winnerScreenWrapper');
+    noDisplay('startScreen');
+    noDisplay('lostScreenWrapper');
+    noDisplay('gameScreenWrapper');
     calculateCoins();
 }
 

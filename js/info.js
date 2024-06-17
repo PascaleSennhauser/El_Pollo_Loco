@@ -6,21 +6,32 @@ let infoText = [
 ];
 let pageNumber = 0;
 
+
 function showGameInfo() {
-    let infoContainerWrapper = document.getElementById('infoContainerWrapper');
-    infoContainerWrapper.classList.remove('d-none');
-    let infoContainer = document.getElementById('infoContainer');
-    infoContainer.classList.remove('d-none');
+    removeDisplayNone('infoContainerWrapper');
+    removeDisplayNone('infoContainer');
     renderInfoText();
 }
 
+
+function removeDisplayNone(name) {
+    let tag = document.getElementById(name);
+    tag.classList.remove('d-none');
+}
+
+
+function addDisplayNone(name) {
+    let tag = document.getElementById(name);
+    tag.classList.add('d-none');
+}
+
+
 function closeGameInfo() {
     pageNumber = 0;
-    let infoContainerWrapper = document.getElementById('infoContainerWrapper');
-    infoContainerWrapper.classList.add('d-none');
-    let infoContainer = document.getElementById('infoContainer');
-    infoContainer.classList.add('d-none');
+    addDisplayNone('infoContainerWrapper');
+    addDisplayNone('infoContainer');
 }
+
 
 function renderInfoText() {
     let textBox = document.getElementById('textBox');
@@ -28,9 +39,10 @@ function renderInfoText() {
     textBox.innerHTML = infoText[pageNumber];
 }
 
+
 function nextPage() {
     pageNumber++;
-    if(pageNumber < infoText.length) {
+    if (pageNumber < infoText.length) {
         renderInfoText();
     } else {
         closeGameInfo();
@@ -39,15 +51,12 @@ function nextPage() {
 
 
 function openInstruction() {
-    let infoContainerWrapper = document.getElementById('infoContainerWrapper');
-    infoContainerWrapper.classList.remove('d-none');
-    let instructionContainer = document.getElementById('instructionContainer');
-    instructionContainer.classList.remove('d-none');
+    removeDisplayNone('infoContainerWrapper');
+    removeDisplayNone('instructionContainer');
 }
 
+
 function closeInstruction() {
-    let infoContainerWrapper = document.getElementById('infoContainerWrapper');
-    infoContainerWrapper.classList.add('d-none');
-    let instructionContainer = document.getElementById('instructionContainer');
-    instructionContainer.classList.add('d-none');
+    addDisplayNone('infoContainerWrapper');
+    addDisplayNone('instructionContainer');
 }
