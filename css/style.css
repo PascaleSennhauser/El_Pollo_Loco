@@ -13,6 +13,8 @@ body {
     background-size: cover;
 }
 
+/* Start screen --------- */
+
 h1 {
     font-size: 64px;
     letter-spacing: 3px;
@@ -192,10 +194,66 @@ td img {
     cursor: pointer;
 }
 
+/* Canvas and game screen --------- */
+
+#gameScreenWrapper {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
 
 #canvas {
     background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
 }
+
+#gameScreen {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 99;
+}
+
+#gameScreen .icon-container {
+    display: flex;
+    justify-content: center;
+}
+
+.keyboard-icon-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.arrow-icons {
+    display: flex;
+    align-items:end;
+}
+
+.arrow-up-icon {
+    height: 30px;
+    margin-right: 24px;
+    margin-bottom: 30px;
+}
+
+.salsa-bottle-icon {
+    height: 60px;
+    width: 60px;
+}
+
+
+/* Endscreen --------- */
 
 #endScreen {
     width: 820px;

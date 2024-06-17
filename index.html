@@ -42,8 +42,8 @@
         <div id="startScreen">
             <div class="icon-container-wrapper">
                 <div class="icon-container">
-                    <img src="./img/assets/volume-icon.svg" id="volumeIcon" class="icon" onclick="soundOff()">
-                    <img src="./img/assets/no-volume-icon.svg" id="noVolumeIcon" class="icon d-none" onclick="soundOn()">
+                    <img src="./img/assets/volume-icon.svg" id="volumeIcon" class="icon" onclick="soundOff('volumeIcon', 'noVolumeIcon')">
+                    <img src="./img/assets/no-volume-icon.svg" id="noVolumeIcon" class="icon d-none" onclick="soundOn('volumeIcon', 'noVolumeIcon')">
                     <img src="./img/assets/info-icon.svg" class="icon" onclick="showGameInfo()">
                     <img src="./img/assets/keyboard-icon.svg" class="icon" onclick="openInstruction()">
                 </div>
@@ -131,9 +131,26 @@
 
         </div>
 
+        <div id="gameScreenWrapper">
+            <canvas id="canvas" width="720" height="480">
+            </canvas>
+    
+            <div id="gameScreen">
+                    <div class="icon-container">
+                        <img src="./img/assets/volume-icon.svg" id="volumeIconGameScreen" class="icon" onclick="soundOff('volumeIconGameScreen', 'noVolumeIconGameScreen')">
+                        <img src="./img/assets/no-volume-icon.svg" id="noVolumeIconGameScreen" class="icon d-none" onclick="soundOn('volumeIconGameScreen', 'noVolumeIconGameScreen')">
+                    </div>
+                    <div class="keyboard-icon-container">
+                        <div class="arrow-icons">
+                            <img src="./img/assets/arrow-left-icon.svg" class="icon">
+                            <img src="./img/assets/arrow-up-icon.svg" class="icon arrow-up-icon">
+                            <img src="./img/assets/arrow-right-icon.svg" class="icon">
+                        </div>
+                        <img src="./img/6_salsa_bottle/salsa_bottle.png" class="icon salsa-bottle-icon">
+                    </div>
+            </div>
+        </div>
 
-        <canvas id="canvas" width="720" height="480">
-        </canvas>
 </body>
 
 </html>

@@ -15,21 +15,25 @@ let sounds = {
 sounds['background_sound'].loop = true;
 sounds['snoring_sound'].loop = true;
 sounds['endboss_sound'].loop = true;
+volumeOn = true;
 
-function soundOn() {
-    let volumeIcon = document.getElementById('volumeIcon');
-    let noVolumeIcon = document.getElementById('noVolumeIcon');
+
+function soundOn(volume, noVolume) {
+    let volumeIcon = document.getElementById(volume);
+    let noVolumeIcon = document.getElementById(noVolume);
     volumeIcon.classList.remove('d-none');
     noVolumeIcon.classList.add('d-none');
     setAudioVolume(1);
+    volumeOn = true;
 }
 
-function soundOff() {
-    let volumeIcon = document.getElementById('volumeIcon');
-    let noVolumeIcon = document.getElementById('noVolumeIcon');
+function soundOff(volume, noVolume) {
+    let volumeIcon = document.getElementById(volume);
+    let noVolumeIcon = document.getElementById(noVolume);
     volumeIcon.classList.add('d-none');
     noVolumeIcon.classList.remove('d-none');
     setAudioVolume(0);
+    volumeOn = false;
 }
 
 function setAudioVolume(volume) {

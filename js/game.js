@@ -13,8 +13,13 @@ function startGame() {
     startScreen.style.display = 'none';
     let endScreen = document.getElementById('endScreen');
     endScreen.style.display = 'none';
-    canvas = document.getElementById('canvas');
-    canvas.style.display = 'unset';
+    gameScreenWrapper = document.getElementById('gameScreenWrapper');
+    gameScreenWrapper.style.display = 'unset';
+    if (volumeOn == true) {
+        soundOn('volumeIconGameScreen', 'noVolumeIconGameScreen');
+    } else {
+        soundOff('volumeIconGameScreen', 'noVolumeIconGameScreen');
+    }
 }
 
 function init() {
@@ -30,9 +35,13 @@ function showStartScreen() {
     startScreen.style.display = 'unset';
     let endScreen = document.getElementById('endScreen');
     endScreen.style.display = 'none';
-    canvas = document.getElementById('canvas');
-    canvas.style.display = 'none';
-    soundOn();
+    gameScreenWrapper = document.getElementById('gameScreenWrapper');
+    gameScreenWrapper.style.display = 'none';
+    if (volumeOn == true) {
+        soundOn('volumeIcon', 'noVolumeIcon');
+    } else {
+        soundOff('volumeIcon', 'noVolumeIcon');
+    }
 }
 
 function showEndScreenLoose() {
@@ -46,8 +55,8 @@ function showEndScreenLoose() {
     lostScreenWrapper.style.display = 'unset';
     let winnerScreenWrapper = document.getElementById('winnerScreenWrapper');
     winnerScreenWrapper.style.display = 'none';
-    canvas = document.getElementById('canvas');
-    canvas.style.display = 'none';
+    gameScreenWrapper = document.getElementById('gameScreenWrapper');
+    gameScreenWrapper.style.display = 'none';
 }
 
 function showEndScreenWin() {
@@ -60,8 +69,8 @@ function showEndScreenWin() {
     lostScreenWrapper.style.display = 'none';
     let winnerScreenWrapper = document.getElementById('winnerScreenWrapper');
     winnerScreenWrapper.style.display = 'unset';
-    canvas = document.getElementById('canvas');
-    canvas.style.display = 'none';
+    gameScreenWrapper = document.getElementById('gameScreenWrapper');
+    gameScreenWrapper.style.display = 'none';
     calculateCoins();
 }
 
