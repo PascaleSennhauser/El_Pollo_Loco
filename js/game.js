@@ -6,22 +6,11 @@ let keyboard = new Keyboard();
 function startGame() {
     touchEvents();
     init();
-    pauseSound('gameOver_sound');
-    pauseSound('gameWin_sound');
-    setSoundsToStart();
-    playSound('background_sound');
-    let startScreen = document.getElementById('startScreen');
-    startScreen.style.display = 'none';
-    let endScreen = document.getElementById('endScreen');
-    endScreen.style.display = 'none';
-    gameScreenWrapper = document.getElementById('gameScreenWrapper');
-    gameScreenWrapper.style.display = 'unset';
-    if (volumeOn == true) {
-        soundOn('volumeIconGameScreen', 'noVolumeIconGameScreen');
-    } else {
-        soundOff('volumeIconGameScreen', 'noVolumeIconGameScreen');
-    }
+    setSoundsForStartingGame();
+    displayGameScreen();
+    setVolumeGameScreen();
 }
+
 
 function init() {
     initLevel();
@@ -29,15 +18,61 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
-function showStartScreen() {
+
+function setSoundsForStartingGame() {
+    pauseWinAndGameOverSound();
+    setSoundsToStart();
+    playSound('background_sound');
+}
+
+
+function pauseWinAndGameOverSound() {
     pauseSound('gameOver_sound');
     pauseSound('gameWin_sound');
-    let startScreen = document.getElementById('startScreen');
-    startScreen.style.display = 'unset';
-    let endScreen = document.getElementById('endScreen');
-    endScreen.style.display = 'none';
-    gameScreenWrapper = document.getElementById('gameScreenWrapper');
-    gameScreenWrapper.style.display = 'none';
+}
+
+
+function displayGameScreen() {
+    displayScreen('gameScreenWrapper');
+    noDisplayScreen('startScreen');
+    noDisplayScreen('endScreen');
+}
+
+function displayScreen(name) {
+    let screen = document.getElementById(name);
+    screen.style.display = 'unset';
+}
+
+function noDisplayScreen(name) {
+    let screen = document.getElementById(name);
+    screen.style.display = 'none';
+}
+
+
+function setVolumeGameScreen() {
+    if (volumeOn == true) {
+        soundOn('volumeIconGameScreen', 'noVolumeIconGameScreen');
+    } else {
+        soundOff('volumeIconGameScreen', 'noVolumeIconGameScreen');
+    }
+}
+
+
+function showStartScreen() {
+    pauseWinAndGameOverSound();
+    displayStartScreen();
+    setVolumeStartScreen();
+}
+
+
+function displayStartScreen() {
+    displayScreen('startScreen');
+    noDisplayScreen('endScreen');
+    noDisplayScreen('gameScreenWrapper');
+}
+
+
+function setVolumeStartScreen() {
     if (volumeOn == true) {
         soundOn('volumeIcon', 'noVolumeIcon');
     } else {
@@ -45,40 +80,53 @@ function showStartScreen() {
     }
 }
 
+
 function showEndScreenLoose() {
+    setSoundsForEndScreenLoose();
+    displayScreen('endScreen');
+    displayScreen('lostScreenWrapper');
+    noDisplayScreen('startScreen');
+    noDisplayScreen('winnerScreenWrapper');
+    noDisplayScreen('gameScreenWrapper');
+}
+
+
+function setSoundsForEndScreenLoose() {
     pauseLoopSounds();
     playSound('gameOver_sound');
-    let startScreen = document.getElementById('startScreen');
-    startScreen.style.display = 'none';
-    let endScreen = document.getElementById('endScreen');
-    endScreen.style.display = 'unset';
-    let lostScreenWrapper = document.getElementById('lostScreenWrapper');
-    lostScreenWrapper.style.display = 'unset';
-    let winnerScreenWrapper = document.getElementById('winnerScreenWrapper');
-    winnerScreenWrapper.style.display = 'none';
-    gameScreenWrapper = document.getElementById('gameScreenWrapper');
-    gameScreenWrapper.style.display = 'none';
 }
 
 function showEndScreenWin() {
-    pauseLoopSounds();
-    playSound('gameWin_sound');
-    let startScreen = document.getElementById('startScreen');
-    startScreen.style.display = 'none';
-    let endScreen = document.getElementById('endScreen');
-    endScreen.style.display = 'unset';
-    lostScreenWrapper.style.display = 'none';
-    let winnerScreenWrapper = document.getElementById('winnerScreenWrapper');
-    winnerScreenWrapper.style.display = 'unset';
-    gameScreenWrapper = document.getElementById('gameScreenWrapper');
-    gameScreenWrapper.style.display = 'none';
+    setSoundsForEndScreenWin();
+    displayScreen('endScreen');
+    displayScreen('winnerScreenWrapper');
+    noDisplayScreen('startScreen');
+    noDisplayScreen('lostScreenWrapper');
+    noDisplayScreen('gameScreenWrapper');
     calculateCoins();
 }
 
+
+function setSoundsForEndScreenWin() {
+    pauseLoopSounds();
+    playSound('gameWin_sound');
+}
+
+
 function calculateCoins() {
+    getCollectedCoins();
+    getAmountOfCoins();
+}
+
+
+function getCollectedCoins() {
     let collectedCoins = document.getElementById('collectedCoins');
     collectedCoins.innerHTML = '';
     collectedCoins.innerHTML = world.character.coinsInventar;
+}
+
+
+function getAmountOfCoins() {
     let numberOfCoins = document.getElementById('numberOfCoins');
     numberOfCoins.innerHTML = '';
     numberOfCoins.innerHTML = world.amountOfCoins;
@@ -90,13 +138,12 @@ function touchEvents() {
         e.preventDefault();
         keyboard.LEFT = true;
     });
-    
+
     document.getElementById('btnRight').addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.LEFT = false;
     });
 }
-
 
 
 window.addEventListener('keydown', (e) => {
@@ -116,6 +163,7 @@ window.addEventListener('keydown', (e) => {
         keyboard.SPACE = true;
     }
 });
+
 
 window.addEventListener('keyup', (e) => {
     if (e.keyCode == 39) {
