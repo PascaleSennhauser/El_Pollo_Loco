@@ -3,6 +3,7 @@ class Cloud extends MovableObject {
     height = 250;
     width = 500;
 
+
     constructor(number, startPoint) {
         super();
         this.loadImage(`img/5_background/layers/4_clouds/${number}.png`);
@@ -10,6 +11,7 @@ class Cloud extends MovableObject {
         this.speed = Math.random() * 0.25;
         this.animate();
     }
+
 
     animate() {
         let animationInterval = setInterval(() => {
@@ -21,6 +23,7 @@ class Cloud extends MovableObject {
         this.animationIntervals.push(animationInterval);
     }
 
+    
     isOutOfCanvas() {
         this.x < -1400
     }

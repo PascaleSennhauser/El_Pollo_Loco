@@ -48,6 +48,8 @@ class Endboss extends MovableObject {
     ];
     isHurt = false;
     isWalking = false;
+    walkingTime = 3000;
+    attackingTime = 500;
 
 
     constructor() {
@@ -62,47 +64,83 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
-    animate() {
-        let walkingTime = 3000;
-        let attackingTime = 2000;
-        let animationCycle = walkingTime + attackingTime;
-        let startTime = new Date().getTime();
 
+    animate() {
+        this.directionAnimation();
+        this.imagesAnimation();
+    }
+
+
+    directionAnimation() {
         let directionInterval = setInterval(() => {
-            if (this.energy < 100 && this.isWalking) {
-                this.speed = 1;
+            if (this.canWalk()) {
+                this.speed = 1.2;
                 this.moveLeft();
             }
         }, 1000 / 60);
         this.animationIntervals.push(directionInterval);
+    }
 
 
+    canWalk() {
+        return this.energy < 100 && this.isWalking;
+    }
+
+
+    imagesAnimation() {
+        let animationCycle = this.walkingTime + this.attackingTime;
+        let startTime = new Date().getTime();
         let animationInterval = setInterval(() => {
             let currentTime = new Date().getTime();
             let elapsedTime = (currentTime - startTime) % animationCycle;
-
-            if (this.isDead()) {
-                this.isWalking = false;
-                this.playAnimationOnce(this.IMAGES_DEAD);
-            } else if (this.isHurt) {
-                this.isWalking = false;
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.energy < 100) {
-                if (elapsedTime < walkingTime) {
-                    this.isWalking = true;
-                    this.playAnimation(this.IMAGES_WALKING);
-                } else {
-                    this.isWalking = false;
-                    this.playAnimation(this.IMAGES_ATTACK);
-                }
-             } else {
-                this.isWalking = false;
-                this.playAnimation(this.IMAGES_ALERT);
-             }
-
-
+            if (this.isDead())
+                this.playAnimationDead();
+            else if (this.isHurt)
+                this.playAnimationHurt();
+            else if (this.isAttacking())
+                if (elapsedTime < this.walkingTime)
+                    this.playAnimationWalking();
+                else
+                    this.playAnimationAttacking();
+                else
+                    this.playAnimationAlert();
         }, 200);
         this.animationIntervals.push(animationInterval);
+    }
+
+
+    playAnimationDead() {
+        this.isWalking = false;
+        this.playAnimationOnce(this.IMAGES_DEAD);
+    }
+
+
+    playAnimationHurt() {
+        this.isWalking = false;
+        this.playAnimation(this.IMAGES_HURT);
+    }
+
+
+    isAttacking() {
+        return this.energy < 100;
+    }
+
+
+    playAnimationWalking() {
+        this.isWalking = true;
+        this.playAnimation(this.IMAGES_WALKING);
+    }
+
+
+    playAnimationAttacking() {
+        this.isWalking = false;
+        this.playAnimation(this.IMAGES_ATTACK);
+    }
+
+
+    playAnimationAlert() {
+        this.isWalking = false;
+        this.playAnimation(this.IMAGES_ALERT);
     }
 
 }

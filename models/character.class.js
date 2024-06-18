@@ -152,7 +152,7 @@ class Character extends MovableObject {
         let animationInterval = setInterval(() => {
             pauseSound('snoring_sound');
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
+                this.playAnimationDead();
             } else if (this.isHurt()) {
                 this.playAnimationHurt();
             } else if (this.isAboveGround()) {
@@ -170,7 +170,7 @@ class Character extends MovableObject {
 
 
     playAnimationDead() {
-
+        this.playAnimation(this.IMAGES_DEAD);
     }
 
 

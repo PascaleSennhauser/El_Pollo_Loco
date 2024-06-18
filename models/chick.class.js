@@ -18,10 +18,12 @@ class Chick extends MovableObject {
         this.animate();
     }
 
+
     animate() {
         this.directionAnimation();
         this.imagesAnimation();
     }
+
 
     directionAnimation() {
         let directionInterval = setInterval(() => {
@@ -32,6 +34,7 @@ class Chick extends MovableObject {
         this.animationIntervals.push(directionInterval);
     }
 
+    
     imagesAnimation() {
         let animationInterval = setInterval(() => {
             if (!this.isDead()) {

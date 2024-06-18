@@ -26,17 +26,6 @@ class DrawableObject {
     }
 
 
-    drawFrame(ctx) {
-        if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof Endboss || this instanceof Bottle || this instanceof Coin || this instanceof BigBottle) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect((this.x + this.offset.left), (this.y + this.offset.top), (this.width - this.offset.right - this.offset.left), (this.height - this.offset.bottom - this.offset.top));
-            ctx.stroke();
-        }
-    }
-
-    
     /**
      * 
      * @param {Array} arr - ['img/image1.png': img, 'img/image2.png': img, ...]
@@ -49,4 +38,16 @@ class DrawableObject {
                 console.log('imageCache', this.imageCache);
             })
         }
+
+        
+
+    /*     drawFrame(ctx) {
+        if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof Endboss || this instanceof Bottle || this instanceof Coin || this instanceof BigBottle) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect((this.x + this.offset.left), (this.y + this.offset.top), (this.width - this.offset.right - this.offset.left), (this.height - this.offset.bottom - this.offset.top));
+            ctx.stroke();
+        }
+    } */
 }
