@@ -1,0 +1,11 @@
+@media (max-width: 720px) {
+
+    #gameScreenWrapper {
+        width: 100%;
+    }
+
+    canvas {
+        width: 100%;
+    }
+
+}

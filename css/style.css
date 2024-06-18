@@ -229,11 +229,11 @@ td img {
 }
 
 .keyboard-icon-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        box-sizing: border-box;
 }
 
 .touch-button {
@@ -313,28 +313,6 @@ td img {
     text-align: center;
     margin-top: 40px;
     display: inline;
-}
-
-
-/* Smartphones --------- */
-
-@media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
-    }
-}
-
-
-/* Smartphones --------- */
-
-@media only screen and (max-height: 480px) and (orientation: landscape) {
-    canvas {
-        height: 100vh;
-    }
-
-    h1 {
-        display: none;
-    }
 }
 
 .d-none {

@@ -6,6 +6,8 @@ let keyboard = new Keyboard();
 function startGame() {
     touchStartEvents();
     touchEndEvents();
+    mouseDownEvents();
+    mouseUpEvents();
     init();
     setSoundsForStartingGame();
     displayGameScreen();
@@ -174,6 +176,52 @@ function touchEndEvents() {
     });
 
     document.getElementById('btnThrow').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = false;
+    });
+}
+
+
+function mouseDownEvents() {
+    document.getElementById('btnRight').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('btnLeft').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    document.getElementById('btnJump').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.UP = true;
+    });
+
+    document.getElementById('btnThrow').addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+}
+
+
+function mouseUpEvents() {
+    document.getElementById('btnRight').addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('btnLeft').addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('btnJump').addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        keyboard.UP = false;
+    });
+
+    document.getElementById('btnThrow').addEventListener('mouseup', (e) => {
         e.preventDefault();
         keyboard.SPACE = false;
     });
