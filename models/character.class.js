@@ -91,33 +91,62 @@ class Character extends MovableObject {
     directionAniamtion() {
         let directionInterval = setInterval(() => {
             pauseSound('walking_sound');
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.otherDirection = false;
+            if (this.canMoveRight())
                 this.moveRight();
-                if (!this.isAboveGround()) {
-                    playSound('walking_sound');
-                }
-            }
-
-            if (this.world.keyboard.LEFT && this.x > -610) {
-                this.otherDirection = true;
+            if (this.canMoveLeft())
                 this.moveLeft();
-                if (!this.isAboveGround()) {
-                    playSound('walking_sound');
-                }
-            }
-
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
+            if (this.canJump())
                 this.jump();
-                setSoundToStart('jumping_sound');
-                playSound('jumping_sound');
-            }
-
-
-            this.world.camera_x = -this.x + 200;
+            this.settingCamera();
         }, 1000 / 60);
         this.animationIntervals.push(directionInterval);
     }
+
+
+    canMoveRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+    }
+
+
+    moveRight() {
+        this.otherDirection = false;
+        super.moveRight();
+        if (!this.isAboveGround()) {
+            playSound('walking_sound');
+        }
+    }
+
+
+    canMoveLeft() {
+        return this.world.keyboard.LEFT && this.x > -610;
+    }
+
+
+    moveLeft() {
+        this.otherDirection = true;
+        super.moveLeft();
+        if (!this.isAboveGround()) {
+            playSound('walking_sound');
+        }
+    }
+
+
+    canJump() {
+        return this.world.keyboard.UP && !this.isAboveGround();
+    }
+
+
+    jump() {
+        super.jump();
+        setSoundToStart('jumping_sound');
+        playSound('jumping_sound');
+    }
+
+
+    settingCamera() {
+        return this.world.camera_x = -this.x + 200;
+    }
+
 
     imagesAnimation() {
         let animationInterval = setInterval(() => {
@@ -125,26 +154,56 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else if (this.isHurt()) {
-                this.updateStartIndex();
-                this.updateTimeLastAction();
-                this.playAnimation(this.IMAGES_HURT);
+                this.playAnimationHurt();
             } else if (this.isAboveGround()) {
-                this.updateTimeLastAction();
-                this.playAnimationOnce(this.IMAGES_JUMPING);
+                this.playAnimationJumping();
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.updateStartIndex();
-                this.updateTimeLastAction();
-                this.playAnimation(this.IMAGES_WALKING);
+                this.playAnimationWalking();
             } else if (this.isStanding(this.timeLastAction)) {
-                this.updateStartIndex();
-                this.playAnimation(this.IMAGES_STANDING);
+                this.playAnimationStanding();
             } else if (this.isWaiting(this.timeLastAction)) {
-                playSound('snoring_sound');
-                this.updateStartIndex();
-                this.playAnimation(this.IMAGES_WAITING);
+                this.playAnimationSnoring();
             }
         }, 100);
         this.animationIntervals.push(animationInterval);
+    }
+
+
+    playAnimationDead() {
+
+    }
+
+
+    playAnimationHurt() {
+        this.updateStartIndex();
+        this.updateTimeLastAction();
+        this.playAnimation(this.IMAGES_HURT);
+    }
+
+
+    playAnimationJumping() {
+        this.updateTimeLastAction();
+        this.playAnimationOnce(this.IMAGES_JUMPING);
+    }
+
+
+    playAnimationWalking() {
+        this.updateStartIndex();
+        this.updateTimeLastAction();
+        this.playAnimation(this.IMAGES_WALKING);
+    }
+
+
+    playAnimationStanding() {
+        this.updateStartIndex();
+        this.playAnimation(this.IMAGES_STANDING);
+    }
+
+
+    playAnimationSnoring() {
+        playSound('snoring_sound');
+        this.updateStartIndex();
+        this.playAnimation(this.IMAGES_WAITING);
     }
 
 }

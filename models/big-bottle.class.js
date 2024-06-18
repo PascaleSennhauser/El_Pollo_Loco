@@ -9,6 +9,7 @@ class BigBottle extends MovableObject {
         bottom: 30
     };
 
+    
     constructor(x) {
         super();
         this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');

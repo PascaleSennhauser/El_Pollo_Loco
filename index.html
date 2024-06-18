@@ -106,31 +106,6 @@
             </div>
         </div>
 
-        <div id="endScreen" class="d-none">
-
-            <div id="lostScreenWrapper" class="d-none">
-                <img src="./img/9_intro_outro_screens/game_over/oh no you lost!.png" class="you-lost-img">
-                <div class="lost-screen-button-container">
-                    <button class="button start-button" onclick="startGame()">Try Again</button>
-                    <button class="button start-button" onclick="showStartScreen()">Menu</button>
-                </div>
-            </div>
-
-            <div id= "winnerScreenWrapper" class="d-none">
-                <div class="end-text-wrapper">
-                    <div class="end-text">
-                        Gracias, amigo/a! You helped Pepe save the fiesta!<br><br><br>
-                        You collected <b id="collectedCoins">0</b> out of <span id="numberOfCoins">0</span> coins.
-                    </div>
-                </div>
-                <div class="winner-screen-button-container">
-                    <button class="button start-button" onclick="startGame()">Restart</button>
-                    <button class="button start-button" onclick="showStartScreen()">Menu</button>
-                </div>
-            </div>
-
-        </div>
-
         <div id="gameScreenWrapper">
             <canvas id="canvas" width="720" height="480">
             </canvas>
@@ -159,6 +134,31 @@
                         </div>
                     </div>
             </div>
+        </div>
+
+        <div id="endScreen" class="d-none">
+
+            <div id="lostScreenWrapper" class="d-none">
+                <img src="./img/9_intro_outro_screens/game_over/oh no you lost!.png" class="you-lost-img">
+                <div class="lost-screen-button-container">
+                    <button class="button start-button" onclick="startGame()">Try Again</button>
+                    <button class="button start-button" onclick="showStartScreen()">Menu</button>
+                </div>
+            </div>
+
+            <div id= "winnerScreenWrapper" class="d-none">
+                <div class="end-text-wrapper">
+                    <div class="end-text">
+                        Gracias, amigo/a! You helped Pepe save the fiesta!<br><br><br>
+                        You collected <b id="collectedCoins">0</b> out of <span id="numberOfCoins">0</span> coins.
+                    </div>
+                </div>
+                <div class="winner-screen-button-container">
+                    <button class="button start-button" onclick="startGame()">Restart</button>
+                    <button class="button start-button" onclick="showStartScreen()">Menu</button>
+                </div>
+            </div>
+
         </div>
 
 </body>
