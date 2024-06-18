@@ -104,7 +104,7 @@ class Character extends MovableObject {
 
 
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead();
     }
 
 
@@ -118,7 +118,7 @@ class Character extends MovableObject {
 
 
     canMoveLeft() {
-        return this.world.keyboard.LEFT && this.x > -610;
+        return this.world.keyboard.LEFT && this.x > -610 && !this.isDead();
     }
 
 
@@ -132,7 +132,7 @@ class Character extends MovableObject {
 
 
     canJump() {
-        return this.world.keyboard.UP && !this.isAboveGround();
+        return this.world.keyboard.UP && !this.isAboveGround() && !this.isDead();
     }
 
 

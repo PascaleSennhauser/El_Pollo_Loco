@@ -35,11 +35,10 @@ class DrawableObject {
                 let img = new Image();
                 img.src = path;
                 this.imageCache[path] = img;
-                console.log('imageCache', this.imageCache);
             })
         }
 
-        
+
 
     /*     drawFrame(ctx) {
         if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof Endboss || this instanceof Bottle || this instanceof Coin || this instanceof BigBottle) {
