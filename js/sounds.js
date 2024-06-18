@@ -16,26 +16,24 @@ sounds['background_sound'].loop = true;
 sounds['snoring_sound'].loop = true;
 sounds['endboss_sound'].loop = true;
 sounds['walking_sound'].loop = true;
-volumeOn = true;
+let volumeOn = true;
 
 
 function soundOn(volume, noVolume) {
-    let volumeIcon = document.getElementById(volume);
-    let noVolumeIcon = document.getElementById(noVolume);
-    volumeIcon.classList.remove('d-none');
-    noVolumeIcon.classList.add('d-none');
+    removeDisplayNone(volume);
+    addDisplayNone(noVolume);
     setAudioVolume(1);
     volumeOn = true;
 }
 
+
 function soundOff(volume, noVolume) {
-    let volumeIcon = document.getElementById(volume);
-    let noVolumeIcon = document.getElementById(noVolume);
-    volumeIcon.classList.add('d-none');
-    noVolumeIcon.classList.remove('d-none');
+    addDisplayNone(volume);
+    removeDisplayNone(noVolume);
     setAudioVolume(0);
     volumeOn = false;
 }
+
 
 function setAudioVolume(volume) {
     Object.values(sounds).forEach((sound) => {
@@ -43,19 +41,23 @@ function setAudioVolume(volume) {
     })
 }
 
+
 function setSoundsToStart() {
     Object.values(sounds).forEach((sound) => {
         sound.currentTime = 0;
     })
 }
 
+
 function pauseSound(nameOfSound) {
     sounds[nameOfSound].pause();
 }
 
+
 function playSound(nameOfSound) {
     sounds[nameOfSound].play();
 }
+
 
 function setSoundToStart(nameOfSound) {
     sounds[nameOfSound].currentTime = 0;

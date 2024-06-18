@@ -4,7 +4,8 @@ let keyboard = new Keyboard();
 
 
 function startGame() {
-    touchEvents();
+    touchStartEvents();
+    touchEndEvents();
     init();
     setSoundsForStartingGame();
     displayGameScreen();
@@ -133,15 +134,10 @@ function getAmountOfCoins() {
 }
 
 
-function touchEvents() {
+function touchStartEvents() {
     document.getElementById('btnRight').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.RIGHT = true;
-    });
-
-    document.getElementById('btnRight').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.RIGHT = false;
     });
 
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
@@ -149,14 +145,27 @@ function touchEvents() {
         keyboard.LEFT = true;
     });
 
-    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.LEFT = false;
-    });
-
     document.getElementById('btnJump').addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.UP = true;
+    });
+
+    document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.SPACE = true;
+    });
+}
+
+
+function touchEndEvents() {
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
     });
 
     document.getElementById('btnJump').addEventListener('touchend', (e) => {
@@ -164,16 +173,10 @@ function touchEvents() {
         keyboard.UP = false;
     });
 
-    document.getElementById('btnThrow').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        keyboard.SPACE = true;
-    });
-
     document.getElementById('btnThrow').addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.SPACE = false;
     });
-
 }
 
 
