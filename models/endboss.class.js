@@ -95,7 +95,7 @@ class Endboss extends MovableObject {
             let elapsedTime = (currentTime - startTime) % animationCycle;
             if (this.isDead())
                 this.playAnimationDead();
-            else if (this.isHurt)
+            else if (this.isHurt())
                 this.playAnimationHurt();
             else if (this.isAttacking())
                 if (elapsedTime < this.walkingTime)

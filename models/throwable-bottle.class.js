@@ -16,7 +16,6 @@ class ThrowableBottle extends ThrowableObject {
     ];
 
 
-    
     constructor(x, y, direction) {
         super(x, y, direction);
         this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
@@ -25,17 +24,31 @@ class ThrowableBottle extends ThrowableObject {
         this.animate();
     }
 
+
     animate() {
         setInterval(() => {
-            if(this.isAboveGround() && !this.hit){
-                this.playAnimation(this.IMAGES_THROWING);
+            if(this.isFlying()){
+                this.playAnimationThrowing();
             } else {
-                this.playAnimationOnce(this.IMAGES_SPLASH);
-                clearInterval(this.throwIntervalX); 
+                this.playAnimationSplashing();
             }           
         }, 50);
     }
 
 
+    isFlying() {
+        return this.isAboveGround() && !this.hit
+    }
+
+
+    playAnimationThrowing() {
+        this.playAnimation(this.IMAGES_THROWING);
+    }
+
+    
+    playAnimationSplashing() {
+        this.playAnimationOnce(this.IMAGES_SPLASH);
+        clearInterval(this.throwIntervalX); 
+    }
 
 }

@@ -11,6 +11,7 @@ class StatusbarCoins extends Statusbar {
     ];
     percentage = 0;
 
+    
     constructor() {
         super();
         this.loadImages(this.IMAGES);
