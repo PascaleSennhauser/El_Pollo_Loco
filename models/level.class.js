@@ -15,6 +15,7 @@ class Level {
         this.setLevelEndX();
     }
 
+
     setLevelEndX() {
         setInterval(() => {
                 this.getEndboss();
@@ -23,9 +24,7 @@ class Level {
                 } else {
                     this.level_end_x = 4250;
                 }
-
             }
-
         , 50);
     }
 
