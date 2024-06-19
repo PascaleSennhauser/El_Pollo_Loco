@@ -21,8 +21,8 @@ let volumeOn = true;
 
 /**
  * This function is for when the sound for the game is on.
- * @param {String} volume - The id of the volume-img.
- * @param {String} noVolume - The id of the noVolume-img.
+ * @param {String} volume - The id of the volume-img
+ * @param {String} noVolume - The id of the noVolume-img
  */
 function soundOn(volume, noVolume) {
     removeDisplayNone(volume);
@@ -34,8 +34,8 @@ function soundOn(volume, noVolume) {
 
 /**
  * This function is for when the sound for the game is off.
- * @param {String} volume - The id of the volume-img.
- * @param {String} noVolume - The id of the noVolume-img.
+ * @param {String} volume - The id of the volume-img
+ * @param {String} noVolume - The id of the noVolume-img
  */
 function soundOff(volume, noVolume) {
     addDisplayNone(volume);
@@ -47,7 +47,7 @@ function soundOff(volume, noVolume) {
 
 /**
  * This function sets the sound on or off.
- * @param {Number} volume - Number 1 for sound on and number 0 for sound off.
+ * @param {Number} volume - Number 1 for sound on and number 0 for sound off
  */
 function setAudioVolume(volume) {
     Object.values(sounds).forEach((sound) => {
@@ -68,7 +68,7 @@ function setSoundsToStart() {
 
 /**
  * This function pauses a sound.
- * @param {String} nameOfSound - The name of the sound.
+ * @param {String} nameOfSound - The name of the sound
  */
 function pauseSound(nameOfSound) {
     sounds[nameOfSound].pause();
@@ -77,7 +77,7 @@ function pauseSound(nameOfSound) {
 
 /**
  * THis function plays a sound.
- * @param {String} nameOfSound - The name of the sound.
+ * @param {String} nameOfSound - The name of the sound
  */
 function playSound(nameOfSound) {
     sounds[nameOfSound].play();
@@ -86,7 +86,7 @@ function playSound(nameOfSound) {
 
 /**
  * This function sets a specific sound to the start point.
- * @param {String} nameOfSound - The name of the sound.
+ * @param {String} nameOfSound - The name of the sound
  */
 function setSoundToStart(nameOfSound) {
     sounds[nameOfSound].currentTime = 0;

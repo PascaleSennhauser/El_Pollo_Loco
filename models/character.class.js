@@ -68,6 +68,9 @@ class Character extends MovableObject {
     coinsInventar = 0;
 
 
+    /**
+     * This constructor loads all the different images and other important functions for the character.
+     */
     constructor() {
         super();
         this.loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
@@ -82,12 +85,19 @@ class Character extends MovableObject {
         this.updateTimeLastAction();
     }
 
+
+    /**
+     * This function animates the character.
+     */
     animate() {
         this.directionAniamtion();
         this.imagesAnimation();
     }
 
 
+    /**
+     * This function sets an interval, so that the character can walk left and right, as well as jump.
+     */
     directionAniamtion() {
         let directionInterval = setInterval(() => {
             pauseSound('walking_sound');
@@ -103,11 +113,18 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function is for looking if the character can move right.
+     * @returns {Boolean} - Returns true if the character can move right, otherwise false.
+     */
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead();
     }
 
 
+    /**
+     * This function is to move the character right.
+     */
     moveRight() {
         this.otherDirection = false;
         super.moveRight();
@@ -117,11 +134,18 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function is for looking if the character can move left.
+     * @returns {Boolean} - Returns true if the character can move left, otherwise false.
+     */
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > -610 && !this.isDead();
     }
 
 
+    /**
+     * This function is to move the character left.
+     */
     moveLeft() {
         this.otherDirection = true;
         super.moveLeft();
@@ -131,11 +155,18 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function is for looking if the character can jump.
+     * @returns {Boolean} - Returns true if the character can jump, otherwise false.
+     */
     canJump() {
         return this.world.keyboard.UP && !this.isAboveGround() && !this.isDead();
     }
 
 
+    /**
+     * This function is to jump.
+     */
     jump() {
         super.jump();
         setSoundToStart('jumping_sound');
@@ -143,11 +174,17 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function is for setting the camera.
+     */
     settingCamera() {
-        return this.world.camera_x = -this.x + 200;
+        this.world.camera_x = -this.x + 200;
     }
 
 
+    /**
+     * This function sets an interval to animate the character with images.
+     */
     imagesAnimation() {
         let animationInterval = setInterval(() => {
             pauseSound('snoring_sound');
@@ -169,11 +206,17 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function plays the dead animation.
+     */
     playAnimationDead() {
         this.playAnimation(this.IMAGES_DEAD);
     }
 
 
+    /**
+     * This function plays the hurt animation.
+     */
     playAnimationHurt() {
         this.updateStartIndex();
         this.updateTimeLastAction();
@@ -181,12 +224,18 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function plays the jumping animation.
+     */
     playAnimationJumping() {
         this.updateTimeLastAction();
         this.playAnimationOnce(this.IMAGES_JUMPING);
     }
 
 
+    /**
+     * This function plays the walking animation.
+     */
     playAnimationWalking() {
         this.updateStartIndex();
         this.updateTimeLastAction();
@@ -194,12 +243,18 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * This function plays the standing animation.
+     */
     playAnimationStanding() {
         this.updateStartIndex();
         this.playAnimation(this.IMAGES_STANDING);
     }
 
 
+    /**
+     * This function plays the snoring animation.
+     */
     playAnimationSnoring() {
         playSound('snoring_sound');
         this.updateStartIndex();

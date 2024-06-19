@@ -1,5 +1,9 @@
 let level1;
 
+
+/**
+ * This function initializes the level with the enemies, the clouds, the items and the background-objects.
+ */
 function initLevel() {
     level1 = new Level(
         [

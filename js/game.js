@@ -59,7 +59,7 @@ function displayGameScreen() {
 
 /**
  * This function displays a html-element by the id.
- * @param {String} name - The id of the html-element.
+ * @param {String} name - The id of the html-element
  */
 function display(name) {
     let screen = document.getElementById(name);
@@ -69,7 +69,7 @@ function display(name) {
 
 /**
  * This function removes a html-element by the id.
- * @param {String} name - The id of the html-element.
+ * @param {String} name - The id of the html-element
  */
 function noDisplay(name) {
     let screen = document.getElementById(name);

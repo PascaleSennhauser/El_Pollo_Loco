@@ -10,6 +10,10 @@ class Chicken extends MovableObject {
     IMAGE_DEAD = 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
 
+    /**
+     * This constructor loads the images and sets important variables.
+     * @param {Number} startPoint - The starting point of the chicken
+     */
     constructor(startPoint) {
         super();
         this.loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
@@ -20,12 +24,18 @@ class Chicken extends MovableObject {
     }
 
 
+    /**
+     * This function animates the chicken.
+     */
     animate() {
         this.directionAnimation();
         this.imagesAnimation();
     }
 
 
+    /**
+     * This function sets an interval, so that the chicken walks.
+     */
     directionAnimation() {
         let directionInterval = setInterval(() => {
             if (!this.isDead()) {
@@ -36,6 +46,9 @@ class Chicken extends MovableObject {
     }
 
 
+    /**
+     * This function sets an interval to animate the chicken with images.
+     */
     imagesAnimation() {
         let animationInterval = setInterval(() => {
             if (!this.isDead()) {

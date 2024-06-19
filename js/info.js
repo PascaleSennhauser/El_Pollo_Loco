@@ -19,7 +19,7 @@ function showGameInfo() {
 
 /**
  * This function removes a html-element by the id.
- * @param {String} name - The id of the html-element.
+ * @param {String} name - The id of the html-element
  */
 function removeDisplayNone(name) {
     let tag = document.getElementById(name);
@@ -29,7 +29,7 @@ function removeDisplayNone(name) {
 
 /**
  * This function displays a html-element by the id.
- * @param {String} name - The id of the html-element.
+ * @param {String} name - The id of the html-element
  */
 function addDisplayNone(name) {
     let tag = document.getElementById(name);
