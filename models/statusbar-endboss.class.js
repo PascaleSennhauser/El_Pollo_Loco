@@ -12,6 +12,9 @@ class StatusbarEndboss extends Statusbar{
     percentage = 100;
 
     
+    /**
+     * This constructor lods the images and sets the statusbar percentage.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

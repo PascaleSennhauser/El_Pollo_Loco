@@ -7,6 +7,13 @@ class Level {
     level_end_x = 4250;
 
 
+    /**
+     * This constructor initializes the level enemies, clouds, items and backgroundObjects.
+     * @param {Array} enemies - An array of enemy objects
+     * @param {Array} clouds - An array of cloud objects
+     * @param {Array} items - An array of item objects (coins and bottles)
+     * @param {Array} backgroundObjects - An array of background objects
+     */
     constructor(enemies, clouds, items, backgroundObjects) {
         this.enemies = enemies;
         this.clouds = clouds;
@@ -16,6 +23,9 @@ class Level {
     }
 
 
+    /**
+     * This method sets the level end.
+     */
     setLevelEndX() {
         setInterval(() => {
                 this.getEndboss();
@@ -29,6 +39,9 @@ class Level {
     }
 
 
+    /**
+     * This method gets an reference of the endboss.
+     */
     getEndboss() {
         this.enemies.forEach((enemy) => {
             if (enemy instanceof Endboss) {

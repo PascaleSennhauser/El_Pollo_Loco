@@ -5,7 +5,7 @@ class Cloud extends MovableObject {
 
 
     /**
-     * This constructor loads the image and sets important variables.
+     * This constructor loads the image and sets important attributes.
      * @param {Number} number - Number 1 or 2 for the cloud-img 1 or cloud-img 2
      * @param {Number} startPoint - The starting point of the cloud
      */
@@ -19,7 +19,7 @@ class Cloud extends MovableObject {
 
 
     /**
-     * This function sets an interval to animate the clouds.
+     * This method sets an interval to animate the clouds.
      */
     animate() {
         let animationInterval = setInterval(() => {
@@ -33,7 +33,7 @@ class Cloud extends MovableObject {
 
     
     /**
-     * This function checks, if the clouds are out of the canvas.
+     * This method checks, if the clouds are out of the canvas.
      */
     isOutOfCanvas() {
         this.x < -1400
@@ -41,7 +41,7 @@ class Cloud extends MovableObject {
 
 
     /**
-     * This function sets the cloud, who is out of the canvas, to the end of the canvas.
+     * This method sets the cloud, who is out of the canvas, to the end of the canvas.
      */
     setToEndOfCanvas() {
         this.x = 4315;

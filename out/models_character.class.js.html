@@ -1,4 +1,32 @@
-class Character extends MovableObject {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/character.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/character.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Character extends MovableObject {
     y = 120;
     height = 300;
     width = 120;
@@ -118,7 +146,7 @@ class Character extends MovableObject {
      * @returns {Boolean} - Returns true if the character can move right, otherwise false.
      */
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.isDead();
+        return this.world.keyboard.RIGHT &amp;&amp; this.x &lt; this.world.level.level_end_x &amp;&amp; !this.isDead();
     }
 
 
@@ -139,7 +167,7 @@ class Character extends MovableObject {
      * @returns {Boolean} - Returns true if the character can move left, otherwise false.
      */
     canMoveLeft() {
-        return this.world.keyboard.LEFT && this.x > -610 && !this.isDead();
+        return this.world.keyboard.LEFT &amp;&amp; this.x > -610 &amp;&amp; !this.isDead();
     }
 
 
@@ -160,7 +188,7 @@ class Character extends MovableObject {
      * @returns {Boolean} - Returns true if the character can jump, otherwise false.
      */
     canJump() {
-        return this.world.keyboard.UP && !this.isAboveGround() && !this.isDead();
+        return this.world.keyboard.UP &amp;&amp; !this.isAboveGround() &amp;&amp; !this.isDead();
     }
 
 
@@ -261,4 +289,26 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_WAITING);
     }
 
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="BigBottle.html">BigBottle</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chick.html">Chick</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Level.html">Level</a></li><li><a href="StatusbarBottle.html">StatusbarBottle</a></li><li><a href="StatusbarCoins.html">StatusbarCoins</a></li><li><a href="StatusbarEndboss.html">StatusbarEndboss</a></li><li><a href="StatusbarHealth.html">StatusbarHealth</a></li><li><a href="ThrowableBottle.html">ThrowableBottle</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addDisplayNone">addDisplayNone</a></li><li><a href="global.html#calculateCoins">calculateCoins</a></li><li><a href="global.html#closeGameInfo">closeGameInfo</a></li><li><a href="global.html#closeInstruction">closeInstruction</a></li><li><a href="global.html#display">display</a></li><li><a href="global.html#displayGameScreen">displayGameScreen</a></li><li><a href="global.html#displayStartScreen">displayStartScreen</a></li><li><a href="global.html#getAmountOfCoins">getAmountOfCoins</a></li><li><a href="global.html#getCollectedCoins">getCollectedCoins</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#mouseDownEvents">mouseDownEvents</a></li><li><a href="global.html#mouseUpEvents">mouseUpEvents</a></li><li><a href="global.html#nextPage">nextPage</a></li><li><a href="global.html#noDisplay">noDisplay</a></li><li><a href="global.html#openInstruction">openInstruction</a></li><li><a href="global.html#pauseLoopSounds">pauseLoopSounds</a></li><li><a href="global.html#pauseSound">pauseSound</a></li><li><a href="global.html#pauseWinAndGameOverSound">pauseWinAndGameOverSound</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#removeDisplayNone">removeDisplayNone</a></li><li><a href="global.html#renderInfoText">renderInfoText</a></li><li><a href="global.html#setAudioVolume">setAudioVolume</a></li><li><a href="global.html#setSoundToStart">setSoundToStart</a></li><li><a href="global.html#setSoundsForEndScreenLoose">setSoundsForEndScreenLoose</a></li><li><a href="global.html#setSoundsForEndScreenWin">setSoundsForEndScreenWin</a></li><li><a href="global.html#setSoundsForStartingGame">setSoundsForStartingGame</a></li><li><a href="global.html#setSoundsToStart">setSoundsToStart</a></li><li><a href="global.html#setVolumeGameScreen">setVolumeGameScreen</a></li><li><a href="global.html#setVolumeStartScreen">setVolumeStartScreen</a></li><li><a href="global.html#showEndScreenLoose">showEndScreenLoose</a></li><li><a href="global.html#showEndScreenWin">showEndScreenWin</a></li><li><a href="global.html#showGameInfo">showGameInfo</a></li><li><a href="global.html#showStartScreen">showStartScreen</a></li><li><a href="global.html#soundOff">soundOff</a></li><li><a href="global.html#soundOn">soundOn</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#touchEndEvents">touchEndEvents</a></li><li><a href="global.html#touchStartEvents">touchStartEvents</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Wed Jun 19 2024 16:57:26 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -15,7 +15,7 @@ class Coin extends MovableObject {
 
 
     /**
-     * This constructor loads the images and sets important variables.
+     * This constructor loads the images and sets important attributes.
      * @param {Number} x - The x-coordinate
      * @param {Number} y - The y-coordinate
      */
@@ -30,7 +30,7 @@ class Coin extends MovableObject {
 
     
     /**
-     * This function animates the coin.
+     * This method animates the coin.
      */
     animate() {
         let animationInterval = setInterval(() => {

@@ -3,6 +3,12 @@ class ThrowableObject extends MovableObject {
     hit = false;
 
 
+    /**
+     * This constructor loads the image, sets important attributes and loads other methods.
+     * @param {Number} x - The number of the x-coordinate
+     * @param {Number} y - The number of the y-coordinate
+     * @param {String} direction - The walking direction of the character ("left" or "right")
+     */
     constructor(x, y, direction) {
         super();
         this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
@@ -14,6 +20,10 @@ class ThrowableObject extends MovableObject {
     }
 
 
+    /**
+     * This method is to throw an object.
+     * @param {String} direction - The walking direction of the character ("left" or "right")
+     */
     throw(direction) {
         this.speedY = 20;
         this.applyGravity();
@@ -26,6 +36,12 @@ class ThrowableObject extends MovableObject {
         }, 25)
     }
 
+
+    /**
+     * This method is for checking if the character is looking to the right.
+     * @param {String} direction - The walking direction of the character ("left" or "right")
+     * @returns {Boolean} - Returns true if the direction is right, otherwise false.
+     */
     isCharacterLookingRight(direction) {
         return direction == "right";        
     }

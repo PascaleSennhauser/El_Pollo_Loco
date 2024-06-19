@@ -11,7 +11,7 @@ class Chick extends MovableObject {
 
 
     /**
-     * This constructor loads the images and sets important variables.
+     * This constructor loads the images and sets important attributes.
      * @param {Number} startPoint - The starting point of the chick
      */
     constructor(startPoint) {
@@ -25,7 +25,7 @@ class Chick extends MovableObject {
 
 
     /**
-     * This function animates the chick.
+     * This method animates the chick.
      */
     animate() {
         this.directionAnimation();
@@ -34,7 +34,7 @@ class Chick extends MovableObject {
 
 
     /**
-     * This function sets an interval, so that chick walks.
+     * This method sets an interval, so that chick walks.
      */
     directionAnimation() {
         let directionInterval = setInterval(() => {
@@ -47,7 +47,7 @@ class Chick extends MovableObject {
 
     
     /**
-     * This function sets an interval to animate the chick with images.
+     * This method sets an interval to animate the chick with images.
      */
     imagesAnimation() {
         let animationInterval = setInterval(() => {
