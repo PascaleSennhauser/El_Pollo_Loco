@@ -23,7 +23,7 @@ h1 {
 
 #startScreen {
     width: 820px;
-    height: 480px;
+    aspect-ratio: 82/48;
     background-image: url('../img/9_intro_outro_screens/start/startscreen_1.png');
     background-size: cover;
     background-position: center;
@@ -198,29 +198,26 @@ td img {
 
 #gameScreenWrapper {
     position: relative;
-    width: 720px;
     height: 480px;
 }
 
-#canvas {
+canvas {
     background-color: black;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #gameScreen {
-    height: 100%;
-    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 4px;
+    right: 4px;
+    bottom: 10px;
+    z-index: 100;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    z-index: 99;
 }
 
 #gameScreen .icon-container {
@@ -229,11 +226,9 @@ td img {
 }
 
 .keyboard-icon-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 20px;
-        box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .touch-button {
@@ -245,7 +240,8 @@ td img {
     align-items: center;
     width: 55px;
     height: 55px;
-    margin-right: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .touch-button:hover {
@@ -272,21 +268,25 @@ td img {
     margin: 0;
 }
 
-
 /* Endscreen --------- */
 
 #endScreen {
     width: 820px;
-    height: 480px;
+    aspect-ratio: 82/48;
     background-image: url('../img/5_background/first_half_background.png');
     background-size: cover;
     background-position: center;
     position: relative;
 }
 
+#lostScreenWrapper {
+    width: 820px;
+    aspect-ratio: 82/48;
+}
+
 .you-lost-img {
     width: 820px;
-    height: 480px;
+    aspect-ratio: 82/48;
 }
 
 .lost-screen-button-container,
@@ -308,39 +308,18 @@ td img {
 
 .end-text {
     max-width:  400px;
-    max-height: 200px;
+    height: 100px;
     padding: 40px 40px;
     text-align: center;
     margin-top: 40px;
     display: inline;
 }
 
-.d-none {
-    display: none;
-}
-
 /* Mobile-Overlay --------- */
 
-.mobile-overlay-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .mobile-overlay {
-    background-color: rgba(246, 187, 98, 0.8);
-    border-radius: 20px;
-    width: 400px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: none;
+    z-index: 199;
 }
 
 .mobile-overlay span {
@@ -351,4 +330,8 @@ td img {
 .mobile-overlay img {
     width: 150px;
     margin-top: 40px;
+}
+
+.d-none {
+    display: none;
 }

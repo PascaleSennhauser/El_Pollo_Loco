@@ -3,6 +3,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 20px;
+    box-sizing: border-box;
     letter-spacing: 2px;
     background-color: #FDAE3B;
 }
