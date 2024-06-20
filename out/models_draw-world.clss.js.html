@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: BackgroundObject</title>
+    <title>JSDoc: Source: models/draw-world.clss.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,209 +17,155 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: BackgroundObject</h1>
+    <h1 class="page-title">Source: models/draw-world.clss.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>BackgroundObject<span class="signature">(imagePath, x)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="BackgroundObject"><span class="type-signature"></span>new BackgroundObject<span class="signature">(imagePath, x)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    This constructor loads the background-images and sets the coordinates.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>imagePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The img-path</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The number for the x-coordinate</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_background-object.class.js.html">models/background-object.class.js</a>, <a href="models_background-object.class.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class DrawWorld {
+    world;
+
+    /**
+     * This constructor is for getting a reference of the world and loading important methods.
+     * @param {Object} world - The world object
+     */
+    constructor(world) {
+        this.world = world;
+        this.draw();
+    }
+
+
+    /**
+     * This method is to draw all the objects in the canvas.
+     */
+    draw() {
+        this.world.ctx.clearRect(0, 0, this.world.canvas.width, this.world.canvas.height);
+        this.setCameraAtTheEnd();
+        this.world.ctx.translate(this.world.camera_x, 0);
+        this.addLevelObjectsToMap();
+        this.world.ctx.translate(-this.world.camera_x, 0); // Back
+        this.addFixedObjectsToMap();
+        this.world.ctx.translate(this.world.camera_x, 0); // Forward
+        this.addCharacterToMap();
+        this.addThrowableBottleToMap();
+        this.world.ctx.translate(-this.world.camera_x, 0);
+        this.redrawCanvas();
+    }
+
+
+    /**
+     * This method sets the camera at the end.
+     */
+    setCameraAtTheEnd() {
+        // The camera_x doesn't follow the character anymore, when the big-bottle is in sight and 300px from the left.
+        if (this.world.bigBottle &amp;&amp; (this.world.bigBottle.x &lt;= -this.world.camera_x + this.world.canvas.width - 300)) {
+            this.world.camera_x = -(this.world.bigBottle.x + 300 - this.world.canvas.width);
+        }
+    }
+
+    /**
+     * This method adds all level objects to the map.
+     */
+    addLevelObjectsToMap() {
+        this.addObjectsToMap(this.world.level.backgroundObjects);
+        this.addObjectsToMap(this.world.level.clouds);
+        this.addObjectsToMap(this.world.level.items);
+        this.addObjectsToMap(this.world.level.enemies);
+    }
+
+
+    /**
+     * This method adds all fixed objects to the map.
+     */
+    addFixedObjectsToMap() {
+        this.addToMap(this.world.healthBar);
+        this.addToMap(this.world.bottleBar);
+        this.addToMap(this.world.coinBar);
+        this.addToMap(this.world.endbossBar);
+    }
+
+
+    /**
+     * This method adds the character to the map.
+     */
+    addCharacterToMap() {
+        this.addToMap(this.world.character);
+    }
+
+
+    /**
+     * This method adds the throwable bottles to the map.
+     */
+    addThrowableBottleToMap() {
+        this.addObjectsToMap(this.world.throwObjects.throwableBottle);
+    }
+
+
+    /**
+     * This method redraws the canvas.
+     */
+    redrawCanvas() {
+        // Draw() wird immer wieder aufgerufen
+        self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        });
+    }
+
+
+    /**
+     * This method adds objects to the map.
+     * @param {Array} objects - An array with the objects
+     */
+    addObjectsToMap(objects) {
+        objects.forEach(o => {
+            this.addToMap(o);
+        });
+    }
+
+
+    /**
+     * This method adds a single object to the map.
+     * @param {Object} mo - The object
+     */
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flipImage(mo);
+        }
+        mo.draw(this.world.ctx);
+        if (mo.otherDirection) {
+            this.flipImageBack(mo);
+        }
+    }
+
+
+    /**
+     * This method is executed, when an image should be placed in the other direction.
+     * @param {Object} mo - The object
+     */
+    flipImage(mo) {
+        this.world.ctx.save();
+        this.world.ctx.translate(mo.width, 0);
+        this.world.ctx.scale(-1, 1);
+        mo.x = mo.x * -1;
+    }
+
+
+    /**
+     * This method is executed to flip the canvas back, when a image is placed in the other direction.
+     * @param {Object} mo - The object
+     */
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.world.ctx.restore();
+    }
+}</code></pre>
+        </article>
+    </section>
 
 
 

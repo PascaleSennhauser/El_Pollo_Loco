@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/throw-objects.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/throw-objects.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class ThrowObjects {
+    world;
+    timeOfThrow = 0;
+    throwableBottle = [];
+
+
+    /**
+     * This constructor is for getting a reference of teh world.
+     * @param {Object} world - The world object
+     */
+    constructor (world) {
+        this.world = world;
+    }
+
+
+    /**
+     * This method checks if a bottle is thrown and then executed.
+     */
+    checkThrowObjects() {
+        if (this.bottleIsThrown()) {
+            let direction = this.checkDirection();
+            let bottle = new ThrowableBottle(this.world.character.x + this.world.character.width / 2, this.world.character.y + this.world.character.height / 2, direction);
+            this.playThrowingBottleSound();
+            this.throwableBottle.push(bottle);
+            this.world.character.bottlesInventar--;
+            this.removeFromBottleBar();
+            this.timeOfThrow = new Date().getTime();
+            this.world.character.updateTimeLastAction();
+            this.removeThrowableBottle(bottle);
+        }
+    }
+
+
+    /**
+     * This method checks if a bottle is and can be thrown.
+     * @returns {Boolean} - Returns true, if the bottle can be thrown, otherwise false.
+     */
+    bottleIsThrown() {
+        return this.world.keyboard.SPACE &amp;&amp; this.world.character.bottlesInventar > 0 &amp;&amp; this.lastThrow() > 1;
+    }
+
+
+    /**
+     * This method plays the throwingBottle sound.
+     */
+    playThrowingBottleSound() {
+        setSoundToStart('throwingBottle_sound');
+        playSound('throwingBottle_sound');
+    }
+
+
+    /**
+     * This method updates the bottle bar, when a bottle is thrown.
+     */
+    removeFromBottleBar() {
+        this.world.bottleBar.percentage -= 20;
+        this.world.bottleBar.setPercentage(this.world.bottleBar.percentage);
+    }
+
+
+    /**
+     * This method removes the throwable bottle from the array.
+     * @param {Object} bottle - The bottle object
+     */
+    removeThrowableBottle(bottle) {
+        setTimeout(() => {
+            let index = this.throwableBottle.indexOf(bottle);
+            if (index > -1) {
+                this.throwableBottle.splice(index, 1);
+            }
+        }, 1500);
+    }
+
+
+    /**
+     * This method checks the direction of the character.
+     * @returns {String} - Returns "left" or "right"
+     */
+    checkDirection() {
+        if (this.world.character.otherDirection) {
+            return "left";
+        } else {
+            return "right";
+        };
+    }
+
+
+    /**
+     * This method checks if an enemy is hit with a bottle.
+     */
+    checkHitWithBottle() {
+        this.world.level.enemies.forEach((enemy) => {
+            this.throwableBottle.forEach((bottle) => {
+                if (this.canBottleCollideWithEnemy(enemy, bottle)) {
+                    bottle.hit = true;
+                    bottle.stopGravity();
+                    if (this.regularEnemy(enemy))
+                        this.world.chickenGetsHit(enemy);
+                    else
+                        this.endbossGetsHit(enemy);
+                }
+            });
+        });
+    }
+
+
+    /**
+     * This method gets executed when the endboss is hit with a bottle.
+     * @param {Object} enemy - The enemy object of the endboss
+     */
+    endbossGetsHit(enemy) {
+        enemy.hit(100 / 3);
+        this.world.endbossBar.setPercentage(enemy.energy);
+        if (this.endbossNotDead(enemy)) {
+            this.world.playCollisionSound();
+            this.endbossHurt(enemy);
+        } else {
+            this.world.playChickenDeadSound();
+            this.removeEndboss(enemy);
+        }
+    }
+
+
+    /**
+     * This method checks if the endboss is dead.
+     * @param {Object} enemy - The enemy object of the endboss
+     * @returns {Boolean} - Returns true if the endboss is still alive, otherwise false.
+     */
+    endbossNotDead(enemy) {
+        return enemy.energy > 0;
+    }
+
+
+    /**
+     * This method gets executed, when the endboss is hurt.
+     * @param {Object} enemy - The enemy object of the endboss
+     */
+    endbossHurt(enemy) {
+        enemy.isHurt = true;
+        setTimeout(() => {
+            enemy.isHurt = false;
+        }, 2000);
+    }
+
+
+    /**
+     * This method removes the endboss from the enemy-array.
+     * @param {object} enemy - The enemy object of the endboss
+     */
+    removeEndboss(enemy) {
+        setTimeout(() => {
+            let index = this.world.level.enemies.indexOf(enemy);
+            if (index > -1) {
+                this.world.level.enemies.splice(index, 1);
+            }
+        }, 2000);
+    }
+
+
+    /**
+     * This method checks if the bottle can collide with an enemy.
+     * @param {Object} enemy - The enemy object
+     * @param {Object} bottle - The bottle object
+     * @returns {Boolean} - Returns true if the bottle can collide, otherwise false.
+     */
+    canBottleCollideWithEnemy(enemy, bottle) {
+        return bottle.isColliding(enemy) &amp;&amp; !enemy.isDead() &amp;&amp; bottle.isAboveGround() &amp;&amp; bottle.hit == false;
+    }
+
+
+    /**
+     * This method checks if the enemy is an instance of a chicken or chick.
+     * @param {Object} enemy - The enemy object
+     * @returns {Boolean} - Returns true if the object is a chicken or chick, otherwise false.
+     */
+    regularEnemy(enemy) {
+        return !(enemy instanceof Endboss);
+    }
+
+
+    /**
+     * This method calculates the time of the last throw.
+     * @returns {Numbwer} - Returns the time passed since the last throw.
+     */
+    lastThrow() {
+        let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
+        return timepassed;
+
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="BigBottle.html">BigBottle</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chick.html">Chick</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DrawWorld.html">DrawWorld</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="ItemCollecting.html">ItemCollecting</a></li><li><a href="Level.html">Level</a></li><li><a href="StatusbarBottle.html">StatusbarBottle</a></li><li><a href="StatusbarCoins.html">StatusbarCoins</a></li><li><a href="StatusbarEndboss.html">StatusbarEndboss</a></li><li><a href="StatusbarHealth.html">StatusbarHealth</a></li><li><a href="ThrowObjects.html">ThrowObjects</a></li><li><a href="ThrowableBottle.html">ThrowableBottle</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addDisplayNone">addDisplayNone</a></li><li><a href="global.html#calculateCoins">calculateCoins</a></li><li><a href="global.html#closeGameInfo">closeGameInfo</a></li><li><a href="global.html#closeInstruction">closeInstruction</a></li><li><a href="global.html#display">display</a></li><li><a href="global.html#displayGameScreen">displayGameScreen</a></li><li><a href="global.html#displayStartScreen">displayStartScreen</a></li><li><a href="global.html#getAmountOfCoins">getAmountOfCoins</a></li><li><a href="global.html#getCollectedCoins">getCollectedCoins</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#mouseDownEvents">mouseDownEvents</a></li><li><a href="global.html#mouseUpEvents">mouseUpEvents</a></li><li><a href="global.html#nextPage">nextPage</a></li><li><a href="global.html#noDisplay">noDisplay</a></li><li><a href="global.html#openInstruction">openInstruction</a></li><li><a href="global.html#pauseLoopSounds">pauseLoopSounds</a></li><li><a href="global.html#pauseSound">pauseSound</a></li><li><a href="global.html#pauseWinAndGameOverSound">pauseWinAndGameOverSound</a></li><li><a href="global.html#playSound">playSound</a></li><li><a href="global.html#removeDisplayNone">removeDisplayNone</a></li><li><a href="global.html#renderInfoText">renderInfoText</a></li><li><a href="global.html#setAudioVolume">setAudioVolume</a></li><li><a href="global.html#setSoundToStart">setSoundToStart</a></li><li><a href="global.html#setSoundsForEndScreenLoose">setSoundsForEndScreenLoose</a></li><li><a href="global.html#setSoundsForEndScreenWin">setSoundsForEndScreenWin</a></li><li><a href="global.html#setSoundsForStartingGame">setSoundsForStartingGame</a></li><li><a href="global.html#setSoundsToStart">setSoundsToStart</a></li><li><a href="global.html#setVolumeGameScreen">setVolumeGameScreen</a></li><li><a href="global.html#setVolumeStartScreen">setVolumeStartScreen</a></li><li><a href="global.html#showEndScreenLoose">showEndScreenLoose</a></li><li><a href="global.html#showEndScreenWin">showEndScreenWin</a></li><li><a href="global.html#showGameInfo">showGameInfo</a></li><li><a href="global.html#showStartScreen">showStartScreen</a></li><li><a href="global.html#soundOff">soundOff</a></li><li><a href="global.html#soundOn">soundOn</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#touchEndEvents">touchEndEvents</a></li><li><a href="global.html#touchStartEvents">touchStartEvents</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Thu Jun 20 2024 12:39:20 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

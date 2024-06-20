@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: BackgroundObject</title>
+    <title>JSDoc: Source: models/item-collecting.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,209 +17,134 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: BackgroundObject</h1>
+    <h1 class="page-title">Source: models/item-collecting.class.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>BackgroundObject<span class="signature">(imagePath, x)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class ItemCollecting {
+    amountOfCoins = 0;
+    world;
 
     
+    /**
+     * This constructor is for getting a reference of the world and loading important methods.
+     * @param {Object} world - The world object
+     */
+    constructor(world) {
+        this.world = world;
+        this.getAmountOfCoins();
+    }
 
+
+    /**
+     * This method is for getting the amount of coins in the game.
+     */
+    getAmountOfCoins() {
+        this.world.level.items.forEach((item) => {
+            if (item instanceof Coin) {
+                this.amountOfCoins++;
+            }
+        })
+    }
+
+
+    /**
+     * This method checks if the character is colleting a coin.
+     */
+    checkCollectingCoins() {
+        this.world.level.items.forEach((item, index) => {
+            if (this.canCharacterCollectCoin(item)) {
+                this.playCollectingCoinSound();
+                // Adding bottle to the inventar of the character
+                this.world.character.coinsInventar++;
+                // Deleting bottle from the items array
+                this.world.level.items.splice(index, 1);
+                this.updateCoinBar();
+            }
+        })
+    }
+
+
+    /**
+     * This method checks if the character can collect a coin.
+     * @param {Object} item - The item object
+     * @returns {Boolean} - Returns true if the character can collect a coin, otherwise false.
+     */
+    canCharacterCollectCoin(item) {
+        return item instanceof Coin &amp;&amp; this.world.character.isColliding(item) &amp;&amp; !this.world.character.isHurt();
+    }
+
+
+    /**
+     * This method plays the collectingCoin sound.
+     */
+    playCollectingCoinSound() {
+        setSoundToStart('collectCoin_sound');
+        playSound('collectCoin_sound');
+    }
+
+
+    /**
+     * This method updates the coin bar.
+     */
+    updateCoinBar() {
+        this.world.coinBar.percentage += (100 / this.amountOfCoins);
+        this.world.coinBar.setPercentage(this.world.coinBar.percentage);
+    }
     
-    <h4 class="name" id="BackgroundObject"><span class="type-signature"></span>new BackgroundObject<span class="signature">(imagePath, x)</span><span class="type-signature"></span></h4>
     
-
-    
-
-
-
-<div class="description">
-    This constructor loads the background-images and sets the coordinates.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>imagePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The img-path</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The number for the x-coordinate</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_background-object.class.js.html">models/background-object.class.js</a>, <a href="models_background-object.class.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    /**
+     * This method checks if the character is collecting a bottle.
+     */
+    checkCollectingBottles() {
+        for (let i = this.world.level.items.length - 1; i >= 0; i--) {
+            let item = this.world.level.items[i];
+            if (this.canCharacterCollectBottle(item)) {
+                this.playCollectingBottleSound();
+                // Adding bottle to the inventar of the character
+                this.world.character.bottlesInventar++;
+                // Deleting bottle from the items array
+                this.world.level.items.splice(i, 1);
+                this.updateBottleBar();
+            }
+        }
+    }
+
+
+    /**
+     * This method checks if the character can collect a bottle.
+     * @param {Object} item - The item object
+     * @returns {Boolean} - Returns true if the character can collect a bottle, otherwise false.
+     */
+    canCharacterCollectBottle(item) {
+        return item instanceof Bottle &amp;&amp; this.world.character.bottlesInventar &lt; 5 &amp;&amp; this.world.character.isColliding(item) &amp;&amp; !this.world.character.isHurt();
+    }
+
+
+    /**
+     * This method plays the collectingbottle sound.
+     */
+    playCollectingBottleSound() {
+        setSoundToStart('collectingBottle_sound');
+        playSound('collectingBottle_sound');
+    }
+
+
+    /**
+     * This method updates the bottle bar.
+     */
+    updateBottleBar() {
+        this.world.bottleBar.percentage += 20;
+        this.world.bottleBar.setPercentage(this.world.bottleBar.percentage);
+    }
+}</code></pre>
+        </article>
+    </section>
 
 
 
