@@ -11,11 +11,12 @@ class World {
     endbossBar = new StatusbarEndboss();
     bigBottle;
     endboss;
-    amountOfCoins = 0;
     timeOfThrow = 0;
     throwableBottle = [];
     animationIntervals = [];
     runInterval;
+    itemCollecting;
+
 
 
     /**
@@ -27,8 +28,8 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.itemCollecting = new ItemCollecting(this);
         this.findingBigBottle();
-        this.getAmountOfCoins();
         this.getEndboss();
         this.draw();
         this.setWorld();
@@ -45,18 +46,6 @@ class World {
                 this.bigBottle = item;
             }
         });
-    }
-
-
-    /**
-     * This method is for getting the amount of coins in the game.
-     */
-    getAmountOfCoins() {
-        this.level.items.forEach((item) => {
-            if (item instanceof Coin) {
-                this.amountOfCoins++;
-            }
-        })
     }
 
 
@@ -165,8 +154,8 @@ class World {
     run() {
         this.runInterval = setInterval(() => {
             this.checkCollisions();
-            this.checkCollectingBottles();
-            this.checkCollectingCoins();
+            this.itemCollecting.checkCollectingBottles();
+            this.itemCollecting.checkCollectingCoins();
             this.checkThrowObjects();
             this.checkHitWithBottle();
             this.checkSoundFightEndboss();
@@ -326,97 +315,6 @@ class World {
             this.character.stopInterval();
             showEndScreenLoose();
         }, 1500);
-    }
-
-
-    /**
-     * This method checks if the character is collecting a bottle.
-     */
-    checkCollectingBottles() {
-        for (let i = this.level.items.length - 1; i >= 0; i--) {
-            let item = this.level.items[i];
-            if (this.canCharacterCollectBottle(item)) {
-                this.playCollectingBottleSound();
-                // Adding bottle to the inventar of the character
-                this.character.bottlesInventar++;
-                // Deleting bottle from the items array
-                this.level.items.splice(i, 1);
-                this.updateBottleBar();
-            }
-        }
-    }
-
-
-    /**
-     * This method checks if the character can collect a bottle.
-     * @param {Object} item - The item object
-     * @returns {Boolean} - Returns true if the character can collect a bottle, otherwise false.
-     */
-    canCharacterCollectBottle(item) {
-        return item instanceof Bottle && this.character.bottlesInventar < 5 && this.character.isColliding(item) && !this.character.isHurt();
-    }
-
-
-    /**
-     * This method plays the collectingbottle sound.
-     */
-    playCollectingBottleSound() {
-        setSoundToStart('collectingBottle_sound');
-        playSound('collectingBottle_sound');
-    }
-
-
-    /**
-     * This method updates the bottle bar.
-     */
-    updateBottleBar() {
-        this.bottleBar.percentage += 20;
-        this.bottleBar.setPercentage(this.bottleBar.percentage);
-    }
-
-
-    /**
-     * This method checks if the character is colleting a coin.
-     */
-    checkCollectingCoins() {
-        this.level.items.forEach((item, index) => {
-            if (this.canCharacterCollectCoin(item)) {
-                this.playCollectingCoinSound();
-                // Adding bottle to the inventar of the character
-                this.character.coinsInventar++;
-                // Deleting bottle from the items array
-                this.level.items.splice(index, 1);
-                this.updateCoinBar();
-            }
-        })
-    }
-
-
-    /**
-     * This method checks if the character can collect a coin.
-     * @param {Object} item - The item object
-     * @returns {Boolean} - Returns true if the character can collect a coin, otherwise false.
-     */
-    canCharacterCollectCoin(item) {
-        return item instanceof Coin && this.character.isColliding(item) && !this.character.isHurt();
-    }
-
-
-    /**
-     * This method plays the collectingCoin sound.
-     */
-    playCollectingCoinSound() {
-        setSoundToStart('collectCoin_sound');
-        playSound('collectCoin_sound');
-    }
-
-
-    /**
-     * This method updates the coin bar.
-     */
-    updateCoinBar() {
-        this.coinBar.percentage += (100 / this.amountOfCoins);
-        this.coinBar.setPercentage(this.coinBar.percentage);
     }
 
 

@@ -191,7 +191,7 @@ function getCollectedCoins() {
 function getAmountOfCoins() {
     let numberOfCoins = document.getElementById('numberOfCoins');
     numberOfCoins.innerHTML = '';
-    numberOfCoins.innerHTML = world.amountOfCoins;
+    numberOfCoins.innerHTML = world.itemCollecting.amountOfCoins;
 }
 
 
