@@ -83,7 +83,7 @@ class Endboss extends MovableObject {
     directionAnimation() {
         let directionInterval = setInterval(() => {
             if (this.canWalk()) {
-                this.speed = 1.2;
+                this.speed = 1.5;
                 this.moveLeft();
             }
         }, 1000 / 60);
@@ -140,6 +140,17 @@ class Endboss extends MovableObject {
     playAnimationHurt() {
         this.isWalking = false;
         this.playAnimation(this.IMAGES_HURT);
+        this.setHurtTimeout();
+    }
+
+
+    /**
+     * This method is for setting the time for how long the endboss is hurt.
+     */
+    setHurtTimeout() {
+        setTimeout(() => {
+            this.isHurt = false;
+        }, 300)
     }
 
 
