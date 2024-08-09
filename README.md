@@ -7,4 +7,4 @@ You have to jump over chicken and chicks or shoot them with a Salsa Bottle befor
 Are you willing to help Pepe in this adventure?
 
 ## Used Technologies
-- **Programming Languages: JavaScript
+- Programming Languages: JavaScript
