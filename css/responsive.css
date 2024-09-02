@@ -56,7 +56,7 @@
 @media (orientation: portrait) and (max-width: 600px) {
 
     .mobile-overlay {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
